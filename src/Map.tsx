@@ -1,7 +1,7 @@
-import L, { LatLngTuple } from "leaflet";
+import L from "leaflet";
 import { useEffect } from "react";
 import "leaflet/dist/leaflet.css";
-import { MaptilerLayer, MapStyle } from "@maptiler/leaflet-maptilersdk";
+import { MaptilerLayer } from "@maptiler/leaflet-maptilersdk";
 /** 
 const NDHalls: { [key: string]: LatLngTuple } = {
   Alumni: [],
