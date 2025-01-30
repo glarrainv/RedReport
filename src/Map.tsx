@@ -1,7 +1,10 @@
 import L from "leaflet";
 import { useEffect } from "react";
 import "leaflet/dist/leaflet.css";
+import { useState } from "react";
 import { MaptilerLayer } from "@maptiler/leaflet-maptilersdk";
+import { db } from "./firebaseConfig";
+import { collection, getDocs, Timestamp } from "firebase/firestore";
 /** 
 const NDHalls: { [key: string]: LatLngTuple } = {
   Alumni: [],
@@ -39,8 +42,30 @@ const NDHalls: { [key: string]: LatLngTuple } = {
   "Welsh Family": [],
 };
 */
+interface Case {
+  id: string;
+  Dorm: string;
+  Time: Timestamp;
+  Type: number;
+}
+const [Points, SetPoints] = useState<Case[]>([]);
 function ReactMap() {
   useEffect(() => {
+    const getData = async () => {
+      const casesCollectionRef = collection(db, "cases");
+      const querySnapshot = await getDocs(casesCollectionRef);
+      const cases: Case[] = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        Dorm: doc.data().Dorm, // Extract Dorm from doc.data()
+        Time: doc.data().Time, // Extract Time from doc.data()
+        Type: doc.data().Type, // Extract Type from doc.data()
+      }));
+
+      SetPoints(cases);
+    };
+
+    getData();
+
     console.log("Map");
     var map = L.map("map", {
       maxZoom: 19,
@@ -63,6 +88,11 @@ function ReactMap() {
   return (
     <>
       <div id="map"></div>
+      <ul>
+        {Points.map((point) => (
+          <li key={point.id}>{point.Dorm}</li>
+        ))}
+      </ul>
     </>
   );
 }
