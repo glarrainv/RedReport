@@ -36,22 +36,20 @@ h1 {
 }
 
 button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
+  border: 3px solid #ff4438;
+  background-color: #fff;
+  color: #ff4438;
+  padding: 10px;
+  font-size: 16px;
+  outline: hidden;
 }
 button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  border: 3px solid #ff4438;
+  background-color: #fff;
+  color: #ff4438;
+  padding: 10px;
+  font-size: 16px;
+  outline: hidden;
 }
 
 @media (prefers-color-scheme: light) {
@@ -77,6 +75,7 @@ body {
   margin-top: 20px;
   position: relative;
   display: inline-flexbox;
+  z-index: 2;
 }
 input {
   border: 3px solid #ff4438;
@@ -91,7 +90,7 @@ input[type="text"] {
   outline: none;
   width: 100%;
 }
-input[type="submit"] {
+.submit {
   background-color: #fff;
   color: #ff4438;
   transition: padding 0.3s linear;
@@ -146,6 +145,6 @@ label {
 
 #map {
   height: 500px;
-  z-index: -1;
   margin-top: 50px;
+  z-index: 1;
 }

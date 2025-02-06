@@ -1,4 +1,7 @@
+import React, { useState } from "react";
 import "./App.css";
+import { db } from "./firebase";
+import { collection, addDoc } from "firebase/firestore";
 
 function App() {
   const NDHalls: { [key: string]: boolean } = {
@@ -37,6 +40,7 @@ function App() {
     "Welsh Family": true,
   };
 
+  const [Hall, SetHall] = useState<string>("");
   function AutoCompleteHall(e: HTMLInputElement) {
     var list = document.getElementById("list");
     while (list?.firstChild) {
@@ -69,6 +73,7 @@ function App() {
         item.innerHTML = hall;
         item.onclick = () => {
           e.value = item.id;
+          SetHall(item.id);
           while (list?.firstChild) {
             list.firstChild.remove();
           }
@@ -82,26 +87,46 @@ function App() {
       }
     }
   }
-
+  const addData = async (e: string) => {
+    if (Hall) {
+      try {
+        const docRef = await addDoc(collection(db, "Cases"), {
+          Dorm: e,
+          Time: new Date(),
+          Type: 0,
+        });
+        console.log("Document written with ID:", docRef.id);
+      } catch (e) {
+        console.error("Error adding document:", e);
+      }
+    } else {
+      console.log("No Hall Selected");
+    }
+  };
   return (
     <>
       <div className="circle"></div>
-      <form name="dorm" autoComplete="off" action="/action_page.php">
-        <div className="autocomplete">
-          <label htmlFor="report">Where did you feel unsafe?</label>
-          <input
-            id="report"
-            type="text"
-            name="report"
-            placeholder="Alumni"
-            onInputCapture={(e) => {
-              AutoCompleteHall(e.currentTarget);
-            }}
-          />
-          <div id="list" className="autocomplete-items"></div>
-        </div>
-        <input className="submit" type="submit" />
-      </form>
+      <div className="autocomplete">
+        <label htmlFor="report">Where did you feel unsafe?</label>
+        <input
+          id="report"
+          type="text"
+          name="report"
+          placeholder="Alumni"
+          onInputCapture={(e) => {
+            AutoCompleteHall(e.currentTarget);
+          }}
+        />
+        <div id="list" className="autocomplete-items"></div>
+      </div>
+      <button
+        className="submit"
+        onClick={() => {
+          addData(Hall);
+        }}
+      >
+        Submit
+      </button>
     </>
   );
 }
