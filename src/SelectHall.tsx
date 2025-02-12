@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./App.css";
 import { db } from "./firebase";
 import { collection, addDoc } from "firebase/firestore";
@@ -41,6 +41,7 @@ function App() {
   };
 
   const [Hall, SetHall] = useState<string>("");
+  const [Type, SetType] = useState<number>(0);
   function AutoCompleteHall(e: HTMLInputElement) {
     var list = document.getElementById("list");
     while (list?.firstChild) {
@@ -90,17 +91,18 @@ function App() {
   const addData = async (e: string) => {
     if (Hall) {
       try {
-        const docRef = await addDoc(collection(db, "Cases"), {
+        console.log(Type);
+        await addDoc(collection(db, "Test"), {
           Dorm: e,
           Time: new Date(),
-          Type: 0,
+          Type: Type,
         });
-        console.log("Document written with ID:", docRef.id);
+        alert("Case Reported, thank you for helping make this campus safer!");
       } catch (e) {
-        console.error("Error adding document:", e);
+        alert("Error adding document: " + e);
       }
     } else {
-      console.log("No Hall Selected");
+      alert("No Hall Selected");
     }
   };
   return (
@@ -118,6 +120,53 @@ function App() {
           }}
         />
         <div id="list" className="autocomplete-items"></div>
+      </div>
+      <div className="autocomplete">
+        <label htmlFor="report">
+          Can you classify the incident into any of the following?
+        </label>
+        <div className="" id="type">
+          <button
+            className="purple"
+            onClick={() => {
+              SetType(0);
+            }}
+          >
+            Uncomfortable Situation
+          </button>
+          <button
+            className="red"
+            onClick={() => {
+              SetType(1);
+            }}
+          >
+            Sexual Harrasment
+          </button>
+          <button
+            className="orange"
+            onClick={() => {
+              SetType(2);
+            }}
+          >
+            Physical Agression
+          </button>
+          <button
+            className="yellow"
+            onClick={() => {
+              SetType(3);
+            }}
+          >
+            Verbal Aggression
+          </button>
+          <button
+            className="black"
+            onClick={() => {
+              SetType(4);
+            }}
+          >
+            Other Discomfort
+          </button>
+        </div>
       </div>
       <button
         className="submit"

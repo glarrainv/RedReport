@@ -1,45 +1,50 @@
 import L from "leaflet";
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import "leaflet/dist/leaflet.css";
-import { useState } from "react";
 import { MaptilerLayer } from "@maptiler/leaflet-maptilersdk";
 import { db } from "./firebase";
 import { collection, getDocs, Timestamp } from "firebase/firestore";
 
-const NDHalls: { [key: string]: [number, number] } = {
-  Alumni: [41.6994, -86.2392],
-  Badin: [41.7006, -86.2412],
-  Baumer: [41.6970931, -86.2410642],
-  "Breen-Phillips": [41.7028, -86.2361],
-  Carroll: [41.702, -86.2478],
-  Cavanaugh: [41.7028288, -86.2374691],
-  Dillon: [41.7019832, -86.247836],
-  Duncan: [41.6978944, -86.2433034],
-  Dunne: [41.704546, -86.2328439],
-  Farley: [41.7036468, -86.2361456],
-  Fisher: [41.6996115, -86.2424719],
-  Zahm: [41.7033848, -86.2375783],
-  Flaherty: [41.7034216, -86.2329018],
-  Graham: [41.7041491, -86.2319799],
-  Howard: [41.7007478, -86.2418234],
-  "Johnson Family": [41.7051344, -86.2322357],
-  Keenan: [41.7042013, -86.2373552],
-  Keough: [41.6980119, -86.2410978],
-  Knott: [41.7036819, -86.2337332],
-  Lewis: [41.7044552, -86.2396082],
-  Lyons: [41.7007967, -86.2434023],
-  McGlinn: [41.6979716, -86.2424967],
-  Morrissey: [41.7009489, -86.24263],
-  "O'Neill": [41.6980337, -86.2418805],
-  "Pasquerilla East": [41.7040086, -86.2339066],
-  "Pasquerilla West": [41.7038304, -86.2349481],
-  Ryan: [41.697321, -86.2401144],
-  Siegfried: [41.703517, -86.2349108],
-  Sorin: [41.7017878, -86.2399094],
-  "St. Edward's": [41.703349, -86.2381985],
-  Stanford: [41.704471, -86.2374673],
-  Walsh: [41.7010014, -86.2400412],
-  "Welsh Family": [41.698092, -86.2403468],
+var NDHalls: {
+  [key: string]: [
+    [number, number],
+    number,
+    [number, number, number, number, number]
+  ];
+} = {
+  Alumni: [[41.6994, -86.2392], 0, [0, 0, 0, 0, 0]],
+  Badin: [[41.7006, -86.2412], 0, [0, 0, 0, 0, 0]],
+  Baumer: [[41.6970931, -86.2410642], 0, [0, 0, 0, 0, 0]],
+  "Breen-Phillips": [[41.7028, -86.2361], 0, [0, 0, 0, 0, 0]],
+  Carroll: [[41.702, -86.2478], 0, [0, 0, 0, 0, 0]],
+  Cavanaugh: [[41.7028288, -86.2374691], 0, [0, 0, 0, 0, 0]],
+  Dillon: [[41.7019832, -86.247836], 0, [0, 0, 0, 0, 0]],
+  Duncan: [[41.6978944, -86.2433034], 0, [0, 0, 0, 0, 0]],
+  Dunne: [[41.704546, -86.2328439], 0, [0, 0, 0, 0, 0]],
+  Farley: [[41.7036468, -86.2361456], 0, [0, 0, 0, 0, 0]],
+  Fisher: [[41.6996115, -86.2424719], 0, [0, 0, 0, 0, 0]],
+  Zahm: [[41.7033848, -86.2375783], 0, [0, 0, 0, 0, 0]],
+  Flaherty: [[41.7034216, -86.2329018], 0, [0, 0, 0, 0, 0]],
+  Graham: [[41.7041491, -86.2319799], 0, [0, 0, 0, 0, 0]],
+  Howard: [[41.7007478, -86.2418234], 0, [0, 0, 0, 0, 0]],
+  "Johnson Family": [[41.7051344, -86.2322357], 0, [0, 0, 0, 0, 0]],
+  Keenan: [[41.7042013, -86.2373552], 0, [0, 0, 0, 0, 0]],
+  Keough: [[41.6980119, -86.2410978], 0, [0, 0, 0, 0, 0]],
+  Knott: [[41.7036819, -86.2337332], 0, [0, 0, 0, 0, 0]],
+  Lewis: [[41.7044552, -86.2396082], 0, [0, 0, 0, 0, 0]],
+  Lyons: [[41.7007967, -86.2434023], 0, [0, 0, 0, 0, 0]],
+  McGlinn: [[41.6979716, -86.2424967], 0, [0, 0, 0, 0, 0]],
+  Morrissey: [[41.7009489, -86.24263], 0, [0, 0, 0, 0, 0]],
+  "O'Neill": [[41.6980337, -86.2418805], 0, [0, 0, 0, 0, 0]],
+  "Pasquerilla East": [[41.7040086, -86.2339066], 0, [0, 0, 0, 0, 0]],
+  "Pasquerilla West": [[41.7038304, -86.2349481], 0, [0, 0, 0, 0, 0]],
+  Ryan: [[41.697321, -86.2401144], 0, [0, 0, 0, 0, 0]],
+  Siegfried: [[41.703517, -86.2349108], 0, [0, 0, 0, 0, 0]],
+  Sorin: [[41.7017878, -86.2399094], 0, [0, 0, 0, 0, 0]],
+  "St. Edward's": [[41.703349, -86.2381985], 0, [0, 0, 0, 0, 0]],
+  Stanford: [[41.704471, -86.2374673], 0, [0, 0, 0, 0, 0]],
+  Walsh: [[41.7010014, -86.2400412], 0, [0, 0, 0, 0, 0]],
+  "Welsh Family": [[41.698092, -86.2403468], 0, [0, 0, 0, 0, 0]],
 };
 
 interface Case {
@@ -51,57 +56,97 @@ interface Case {
 
 function ReactMap() {
   const [Points, SetPoints] = useState<Case[]>([]);
-  var map: L.Map;
+  var HallNum;
+  const mapRef = useRef<L.Map | null>(null);
+
   useEffect(() => {
     const getData = async () => {
-      const casesCollectionRef = collection(db, "Cases");
+      const casesCollectionRef = collection(db, "Test");
       const querySnapshot = await getDocs(casesCollectionRef);
       const cases: Case[] = querySnapshot.docs.map((doc) => ({
         id: doc.id,
-        Dorm: doc.data().Dorm, // Extract Dorm from doc.data()
-        Time: doc.data().Time, // Extract Time from doc.data()
-        Type: doc.data().Type, // Extract Type from doc.data()}
+        Dorm: doc.data().Dorm,
+        Time: doc.data().Time,
+        Type: doc.data().Type,
       }));
 
       SetPoints(cases);
     };
+
+    if (!mapRef.current) {
+      mapRef.current = L.map("map", { maxZoom: 19 })
+        .setView([41.7002, -86.2379], 15)
+        .setMinZoom(15)
+        .setMaxBounds([
+          [41.7152, -86.2079],
+          [41.6852, -86.2679],
+        ]);
+
+      new MaptilerLayer({
+        style: "80390579-ac14-4623-ba3e-80bdbcb7bd5f",
+        apiKey: "4XUdc4BtSv2psaIP6grE",
+      }).addTo(mapRef.current);
+    }
+
     getData();
-    map = L.map("map", {
-      maxZoom: 19,
-    })
-      .setView([41.7002, -86.2379], 15)
-      .setMinZoom(15)
-      .setMaxBounds([
-        [41.7152, -86.2079],
-        [41.6852, -86.2679],
-      ]);
-    new MaptilerLayer({
-      style: "80390579-ac14-4623-ba3e-80bdbcb7bd5f",
-      apiKey: "4XUdc4BtSv2psaIP6grE",
-    }).addTo(map);
-    return () => {
-      map.remove(); // Cleanup the map
-    };
   }, []);
-  console.log(Points);
-  Points.map((point) => {
-    console.log(point.Dorm);
-    L.circle(NDHalls[point.Dorm], {
-      color: "blue",
-      fillColor: "#0000FF",
-      fillOpacity: 0.3,
-      radius: 50,
-    }).addTo(map);
-  });
-  return (
-    <>
-      <div id="map"></div>
-      <ul>
-        {Points.map((point) => (
-          <li key={point.id}>{point.Dorm}</li>
-        ))}
-      </ul>
-    </>
-  );
+
+  useEffect(() => {
+    if (!mapRef.current || Points.length === 0) return;
+
+    Points.forEach((point) => {
+      NDHalls[point.Dorm][1]++;
+      if (NDHalls[point.Dorm][1] > 6) {
+        HallNum = 6;
+      } else {
+        HallNum = NDHalls[point.Dorm][1];
+      }
+      var TypeColor;
+      if (point.Type == 0) {
+        TypeColor = "#d00072";
+        NDHalls[point.Dorm][2][0]++;
+      } else if (point.Type == 1) {
+        TypeColor = "#ff1100";
+        NDHalls[point.Dorm][2][1]++;
+      } else if (point.Type == 2) {
+        TypeColor = "#ff6a00";
+        NDHalls[point.Dorm][2][2]++;
+      } else if (point.Type == 3) {
+        TypeColor = "#d0bf00";
+        NDHalls[point.Dorm][2][3]++;
+      } else if (point.Type == 4) {
+        TypeColor = "#000000";
+        NDHalls[point.Dorm][2][4]++;
+      }
+      L.circle(NDHalls[point.Dorm][0], {
+        color: TypeColor,
+        fillColor: TypeColor,
+        fillOpacity: 0.1,
+        radius: 5 * HallNum,
+      }).addTo(mapRef.current!);
+    });
+
+    Object.keys(NDHalls).forEach((hall) => {
+      L.circle(NDHalls[hall][0], {
+        color: "black",
+        fillColor: "black",
+        fillOpacity: 0.9,
+        radius: 3,
+      })
+
+        .addTo(mapRef.current!)
+        .bindPopup(
+          `<h3>${hall}</h3>
+          <p><b>Uncomfortable situation:</b> ${NDHalls[hall][2][0]} </br>
+          <b>Sexual Harrasment:</b> ${NDHalls[hall][2][1]} </br>
+          <b>Physical Agression:</b> ${NDHalls[hall][2][2]} </br>
+          <b>Verbal Aggression:</b> ${NDHalls[hall][2][3]} </br>
+          <b>Other Discomfort:</b> ${NDHalls[hall][2][4]} </p>`
+        );
+    });
+  }, [Points]);
+
+  return <div id="map"></div>;
 }
+
 export default ReactMap;

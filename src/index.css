@@ -35,19 +35,28 @@ h1 {
   line-height: 1.1;
 }
 
-button {
+.submit {
   border: 3px solid #ff4438;
   background-color: #fff;
   color: #ff4438;
   padding: 10px;
   font-size: 16px;
   outline: hidden;
+  margin-top: 10px;
+}
+button {
+  transition: padding 0.3s linear;
+  padding: 10px;
 }
 button:hover {
+  transform-origin: center center;
+  padding: 20px;
+}
+
+.submit:hover {
   border: 3px solid #ff4438;
   background-color: #fff;
   color: #ff4438;
-  padding: 10px;
   font-size: 16px;
   outline: hidden;
 }
@@ -59,9 +68,6 @@ button:hover {
   }
   a:hover {
     color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
   }
 }
 * {
@@ -75,7 +81,6 @@ body {
   margin-top: 20px;
   position: relative;
   display: inline-flexbox;
-  z-index: 2;
 }
 input {
   border: 3px solid #ff4438;
@@ -90,17 +95,12 @@ input[type="text"] {
   outline: none;
   width: 100%;
 }
-.submit {
-  background-color: #fff;
-  color: #ff4438;
-  transition: padding 0.3s linear;
-}
 .autocomplete-items {
   position: absolute;
   border: 3px solid #ff4438;
   border-bottom: none;
   border-top: none;
-  z-index: 99;
+  z-index: 2;
   /*position the autocomplete items to be the same width as the container:*/
   top: 100%;
   left: 0;
@@ -112,6 +112,11 @@ input[type="text"] {
   color: #ff4438;
   background-color: #fff;
   border-bottom: 3px solid #ff4438;
+  z-index: 3;
+}
+#type button {
+  margin: 5px;
+  z-index: 2 !important;
 }
 .autocomplete-items div:hover {
   /*when hovering an item:*/
@@ -136,15 +141,72 @@ label {
   height: 18rem;
   background-color: #ff4438;
 }
-.submit {
-  margin-top: 10px;
-}
-.submit:hover {
-  padding: 20px;
-}
 
 #map {
   height: 500px;
   margin-top: 50px;
   z-index: 1;
+}
+.purple {
+  cursor: pointer;
+  color: #d00072;
+  background-color: #fff;
+  border: 3px solid #d00072;
+}
+.purple:focus {
+  cursor: pointer;
+  color: #fff;
+  background-color: #d00072;
+  border: 3px solid #d00072;
+}
+.red {
+  cursor: pointer;
+  color: #ff1100;
+  background-color: #fff;
+  border: 3px solid #ff1100;
+}
+.red:focus {
+  cursor: pointer;
+  color: #fff;
+  background-color: #ff1100;
+  border: 3px solid #ff1100;
+}
+
+.orange {
+  cursor: pointer;
+  color: #ff6a00;
+  background-color: #fff;
+  border: 3px solid #ff6a00;
+}
+.orange:focus {
+  cursor: pointer;
+  color: #fff;
+  background-color: #ff6a00;
+  border: 3px solid #ff6a00;
+}
+
+.yellow {
+  cursor: pointer;
+  color: #d0bf00;
+  background-color: #fff;
+  border: 3px solid #d0bf00;
+}
+.yellow:focus {
+  cursor: pointer;
+  color: #fff;
+  background-color: #d0bf00;
+  border: 3px solid #d0bf00;
+}
+
+.black {
+  cursor: pointer;
+  color: #000000;
+  background-color: #fff;
+  border: 3px solid #000000;
+}
+.black:focus {
+  cursor: pointer;
+  color: #fff;
+  background-color: #000000;
+  border: 3px solid #000000;
 }

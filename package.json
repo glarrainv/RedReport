@@ -13,6 +13,7 @@
     "@firebasegen/default-connector": "file:dataconnect-generated/js/default-connector",
     "@maptiler/leaflet-maptilersdk": "^4.0.2",
     "firebase": "^11.2.0",
+    "ipify": "^6.0.0",
     "leaflet": "^1.9.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
