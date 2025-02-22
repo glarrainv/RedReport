@@ -1,3 +1,5 @@
+import { auth } from "./firebase";
+
 export const getProtectedData = async (): Promise<any> => {
   try {
     const user = auth.currentUser;

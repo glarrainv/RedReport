@@ -48,7 +48,7 @@ var NDHalls: {
 interface Case {
   id: string;
   Dorm: string;
-  Time: Timestamp;
+  Time: Date;
   Type: number;
 }
 

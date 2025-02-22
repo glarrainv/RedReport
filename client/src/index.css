@@ -36,9 +36,9 @@ h1 {
 }
 
 .submit {
-  border: 3px solid #ff4438;
+  border: 3px solid #d64137;
   background-color: #fff;
-  color: #ff4438;
+  color: #d64137;
   padding: 10px;
   font-size: 16px;
   outline: hidden;
@@ -54,9 +54,9 @@ button:hover {
 }
 
 .submit:hover {
-  border: 3px solid #ff4438;
+  border: 3px solid #d64137;
   background-color: #fff;
-  color: #ff4438;
+  color: #d64137;
   font-size: 16px;
   outline: hidden;
 }
@@ -83,21 +83,21 @@ body {
   display: inline-flexbox;
 }
 input {
-  border: 3px solid #ff4438;
+  border: 3px solid #d64137;
   background-color: #fff;
-  color: #ff4438;
+  color: #d64137;
   padding: 10px;
   font-size: 16px;
 }
 input[type="text"] {
   background-color: #fff;
-  color: #ff4438;
+  color: #d64137;
   outline: none;
   width: 100%;
 }
 .autocomplete-items {
   position: absolute;
-  border: 3px solid #ff4438;
+  border: 3px solid #d64137;
   border-bottom: none;
   border-top: none;
   z-index: 2;
@@ -109,9 +109,9 @@ input[type="text"] {
 .autocomplete-items div {
   padding: 10px;
   cursor: pointer;
-  color: #ff4438;
+  color: #d64137;
   background-color: #fff;
-  border-bottom: 3px solid #ff4438;
+  border-bottom: 3px solid #d64137;
   z-index: 3;
 }
 #type button {
@@ -130,7 +130,7 @@ input[type="text"] {
 label {
   font-size: 30px;
   text-align: center;
-  color: #ff4438;
+  color: #d64137;
 }
 .circle {
   justify-content: center;
@@ -139,7 +139,7 @@ label {
   display: flex;
   width: 18rem;
   height: 18rem;
-  background-color: #ff4438;
+  background-color: #d64137;
 }
 
 #map {
