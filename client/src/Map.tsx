@@ -2,8 +2,6 @@ import L from "leaflet";
 import { useEffect, useRef, useState } from "react";
 import "leaflet/dist/leaflet.css";
 import { MaptilerLayer } from "@maptiler/leaflet-maptilersdk";
-import { db } from "./firebase";
-import { collection, getDocs, Timestamp } from "firebase/firestore";
 
 var NDHalls: {
   [key: string]: [
@@ -61,16 +59,20 @@ function ReactMap() {
 
   useEffect(() => {
     const getData = async () => {
-      const casesCollectionRef = collection(db, "Test");
-      const querySnapshot = await getDocs(casesCollectionRef);
-      const cases: Case[] = querySnapshot.docs.map((doc) => ({
-        id: doc.id,
-        Dorm: doc.data().Dorm,
-        Time: doc.data().Time,
-        Type: doc.data().Type,
-      }));
+      try {
+        const response = await fetch("http://localhost:5000/api/cases");
+        const data = await response.json();
+        const cases: Case[] = data.map((point: any) => ({
+          id: point.id,
+          Dorm: point.Dorm,
+          Time: new Date(point.Time), // Ensure proper Date conversion
+          Type: point.Type,
+        }));
 
-      SetPoints(cases);
+        SetPoints(cases);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
     };
 
     if (!mapRef.current) {
