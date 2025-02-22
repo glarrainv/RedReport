@@ -9,14 +9,11 @@ export const getProtectedData = async (): Promise<any> => {
     }
 
     const token = await user.getIdToken();
-    const response = await fetch(
-      `${process.env.REACT_APP_BACKEND_URL}/protected`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
     if (!response.ok) {
       throw new Error(`HTTP Error: ${response.status}`);
