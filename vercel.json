@@ -7,7 +7,7 @@
     },
     {
       "src": "client/**/*",
-      "use": "@vercel/static"
+      "use": "@vercel/next"
     }
   ],
   "routes": [
