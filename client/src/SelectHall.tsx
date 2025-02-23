@@ -93,7 +93,7 @@ function App() {
     }
 
     try {
-      const response = await fetch("/api/upload", {
+      const response = await fetch("red-report.vercel.app/api/upload", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
