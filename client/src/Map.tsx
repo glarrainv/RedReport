@@ -60,7 +60,9 @@ function ReactMap() {
   useEffect(() => {
     const getData = async () => {
       try {
-        const response = await fetch("http://red-report.vercel.app/api/import");
+        const response = await fetch(
+          "https://red-report.vercel.app/api/import"
+        );
         const data = await response.json();
         const cases: Case[] = data.map((point: any) => ({
           id: point.id,
