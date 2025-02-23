@@ -29,7 +29,7 @@ admin.initializeApp({
 const db = getFirestore();
 
 // Fetch data from Firestore
-app.get("/api/cases", async (req, res) => {
+app.get("/api/import", async (req, res) => {
   try {
     const snapshot = await db.collection("Test").get();
     const cases = snapshot.docs.map((doc) => ({
@@ -47,7 +47,7 @@ app.get("/api/cases", async (req, res) => {
 });
 
 // Add this route in your backend
-app.post("/api/cases", async (req, res) => {
+app.post("/api/upload", async (req, res) => {
   try {
     const { Dorm, Type } = req.body;
 

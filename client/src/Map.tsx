@@ -60,7 +60,7 @@ function ReactMap() {
   useEffect(() => {
     const getData = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/cases");
+        const response = await fetch("/api/import");
         const data = await response.json();
         const cases: Case[] = data.map((point: any) => ({
           id: point.id,
