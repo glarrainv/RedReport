@@ -1,7 +1,5 @@
 import { useState } from "react";
 import "./App.css";
-import { db } from "./firebase";
-import { collection, addDoc } from "firebase/firestore";
 
 function App() {
   const NDHalls: { [key: string]: boolean } = {
@@ -89,20 +87,27 @@ function App() {
     }
   }
   const addData = async (e: string) => {
-    if (Hall) {
-      try {
-        console.log(Type);
-        await addDoc(collection(db, "Test"), {
-          Dorm: e,
-          Time: new Date(),
-          Type: Type,
-        });
-        alert("Case Reported, thank you for helping make this campus safer!");
-      } catch (e) {
-        alert("Error adding document: " + e);
-      }
-    } else {
+    if (!e) {
       alert("No Hall Selected");
+      return;
+    }
+
+    try {
+      const response = await fetch("/api/cases", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          Dorm: e,
+          Type: Type, // This comes from your state
+        }),
+      });
+
+      if (!response.ok) throw new Error("Failed to report case");
+
+      const data = await response.json();
+      alert("Case reported successfully! Case ID: " + data.id);
+    } catch (error) {
+      alert("Error: " + error);
     }
   };
   return (

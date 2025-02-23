@@ -46,6 +46,29 @@ app.get("/api/cases", async (req, res) => {
   }
 });
 
+// Add this route in your backend
+app.post("/api/cases", async (req, res) => {
+  try {
+    const { Dorm, Type } = req.body;
+
+    if (!Dorm || Type === undefined) {
+      return res.status(400).json({ error: "Missing Dorm or Type field" });
+    }
+
+    const newCase = {
+      Dorm,
+      Time: new Date(), // Firestore will store it as a Timestamp
+      Type,
+    };
+
+    const docRef = await db.collection("Test").add(newCase);
+    res.status(201).json({ id: docRef.id, ...newCase }); // Return created document
+  } catch (error) {
+    console.error("Error writing to Firestore:", error);
+    res.status(500).json({ error: "Failed to write data" });
+  }
+});
+
 app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+  console.log(`Server is running on ${PORT}`);
 });
