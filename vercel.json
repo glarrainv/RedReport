@@ -1,4 +1,11 @@
 {
+  "version": 2,
+  "builds": [
+    { "src": "client/**" },
+    {
+      "src": "server/index.js"
+    }
+  ],
   "routes": [
     {
       "src": "/api/(.*)",
