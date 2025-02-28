@@ -60,5 +60,12 @@ app.post("/api/upload", async (req, res) => {
   }
 });
 
+app.use(
+  express.static("dist", {
+    setHeaders: (res) => {
+      res.setHeader("Content-Type", "application/javascript");
+    },
+  })
+);
 // Export the Express API as a Serverless Function
 module.exports = app;
