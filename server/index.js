@@ -28,7 +28,7 @@ admin.initializeApp({
 const db = getFirestore();
 
 // API Route to Fetch Data
-app.get("/api/cases", async (req, res) => {
+app.get("server/api/cases", async (req, res) => {
   try {
     const snapshot = await db.collection("Test").get();
     const cases = snapshot.docs.map((doc) => ({
@@ -45,7 +45,7 @@ app.get("/api/cases", async (req, res) => {
 });
 
 // API Route to Post Data
-app.post("/api/upload", async (req, res) => {
+app.post("server/api/upload", async (req, res) => {
   try {
     const { Dorm, Type } = req.body;
     await db.collection("Test").add({
@@ -59,12 +59,6 @@ app.post("/api/upload", async (req, res) => {
     res.status(500).json({ error: "Failed to add data" });
   }
 });
-// Static assets last
-app.use(express.static(path.join(__dirname, "../client")));
 
-// Catch-all for client-side routing
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../client/index.html"));
-});
 // Export the Express API as a Serverless Function
 module.exports = app;
