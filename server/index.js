@@ -60,11 +60,11 @@ app.post("/api/upload", async (req, res) => {
   }
 });
 // Static assets last
-app.use(express.static(path.join(__dirname, "../client/dist")));
+app.use(express.static(path.join(__dirname, "../client")));
 
 // Catch-all for client-side routing
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../client/dist/index.html"));
+  res.sendFile(path.join(__dirname, "../client/index.html"));
 });
 // Export the Express API as a Serverless Function
 module.exports = app;
