@@ -16,11 +16,11 @@
   "rewrites": [
     {
       "source": "/api/(.*)",
-      "destination": "/server/index.js"
+      "destination": "server/index.js"
     },
     {
       "source": "/(.*)",
-      "destination": "/client/index.html"
+      "destination": "client/dist/index.html"
     }
   ]
 }

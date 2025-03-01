@@ -59,13 +59,12 @@ app.post("/api/upload", async (req, res) => {
     res.status(500).json({ error: "Failed to add data" });
   }
 });
+// Static assets last
+app.use(express.static(path.join(__dirname, "../client/build")));
 
-app.use(
-  express.static("dist", {
-    setHeaders: (res) => {
-      res.setHeader("Content-Type", "application/javascript");
-    },
-  })
-);
+// Catch-all for client-side routing
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../client/build/index.html"));
+});
 // Export the Express API as a Serverless Function
 module.exports = app;
