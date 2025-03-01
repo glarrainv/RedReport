@@ -20,7 +20,7 @@
     },
     {
       "source": "/(.*)",
-      "destination": "client"
+      "destination": "client/index.html"
     }
   ]
 }
