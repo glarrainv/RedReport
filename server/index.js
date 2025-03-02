@@ -28,7 +28,7 @@ admin.initializeApp({
 const db = getFirestore();
 
 // API Route to Fetch Data
-app.get("client/api/import", async (req, res) => {
+app.get("/api/import", async (req, res) => {
   try {
     const snapshot = await db.collection("Test").get();
     const cases = snapshot.docs.map((doc) => ({
@@ -45,7 +45,7 @@ app.get("client/api/import", async (req, res) => {
 });
 
 // API Route to Post Data
-app.post("client/api/upload", async (req, res) => {
+app.post("/api/upload", async (req, res) => {
   try {
     const { Dorm, Type } = req.body;
     await db.collection("Test").add({

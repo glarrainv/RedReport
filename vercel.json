@@ -15,7 +15,7 @@
   ],
   "rewrites": [
     {
-      "source": "client/api/(.*)",
+      "source": "/api/(.*)",
       "destination": "server/index.js"
     },
     {
