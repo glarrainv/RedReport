@@ -24,7 +24,7 @@ admin.initializeApp({
     universe_domain: process.env.FIREBASE_UNIVERSE_DOMAIN,
   }),
 });
-
+console.log(process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, "\n")); // Just for debugging (remove in production)
 const db = getFirestore();
 
 // API Route to Fetch Data
