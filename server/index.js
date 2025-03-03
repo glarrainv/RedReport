@@ -62,4 +62,3 @@ app.post("/api/upload", async (req, res) => {
 
 // Export the Express API as a Serverless Function
 module.exports = app;
-module.exports.handler = require("serverless-http")(app);
