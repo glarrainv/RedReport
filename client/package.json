@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@firebasegen/default-connector": "file:dataconnect-generated/js/default-connector",
+    "@grpc/grpc-js": "^1.12.6",
     "@maptiler/leaflet-maptilersdk": "^4.0.2",
     "firebase": "^11.2.0",
     "ipify": "^6.0.0",
