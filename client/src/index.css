@@ -2,7 +2,6 @@
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
   background-color: #fff;
@@ -45,12 +44,12 @@ h1 {
   margin-top: 10px;
 }
 button {
-  transition: padding 0.3s linear;
+  transition: padding 0.2s linear;
   padding: 10px;
 }
 button:hover {
   transform-origin: center center;
-  padding: 20px;
+  padding: 13px;
 }
 
 .submit:hover {
@@ -137,8 +136,8 @@ label {
   margin: auto;
   border-radius: 50%;
   display: flex;
-  width: 18rem;
-  height: 18rem;
+  width: 17rem;
+  height: 17rem;
   background-color: #d64137;
 }
 

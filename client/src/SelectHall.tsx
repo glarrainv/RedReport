@@ -131,7 +131,7 @@ function App() {
         <label htmlFor="report">
           Can you classify the incident into any of the following?
         </label>
-        <div className="" id="type">
+        <div id="type">
           <button
             className="purple"
             onClick={() => {
