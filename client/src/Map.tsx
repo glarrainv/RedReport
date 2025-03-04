@@ -1,4 +1,5 @@
 import L from "leaflet";
+import "./App.css";
 import { useEffect, useRef, useState } from "react";
 import "leaflet/dist/leaflet.css";
 import { MaptilerLayer } from "@maptiler/leaflet-maptilersdk";

@@ -142,8 +142,9 @@ label {
 }
 
 #map {
-  height: 500px;
-  margin-top: 50px;
+  margin: auto;
+  height: 100vh;
+  width: 75vw;
   z-index: 1;
 }
 .purple {
