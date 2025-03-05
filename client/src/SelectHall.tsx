@@ -1,8 +1,10 @@
 import { useState } from "react";
 import "./App.css";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 function App() {
+  const navigate = useNavigate();
   const NDHalls: { [key: string]: boolean } = {
     Alumni: true,
     Badin: true,
@@ -50,7 +52,9 @@ function App() {
     const HallKeys = Object.keys(NDHalls);
     for (var hall of HallKeys) {
       for (let char = 0; char < e.value.length; char++) {
-        if (e.value[char] == hall[char]) {
+        if (
+          e.value[char].toLocaleLowerCase() == hall[char].toLocaleLowerCase()
+        ) {
           if (NDHalls[hall] == false) {
             NDHalls[hall] = true;
           }
@@ -104,9 +108,7 @@ function App() {
       });
 
       if (!response.ok) throw new Error("Failed to report case");
-
-      const data = await response.json();
-      alert("Case reported successfully! Case ID: " + data.id);
+      navigate("/map");
     } catch (error) {
       alert("Error: " + error);
     }
