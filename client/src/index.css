@@ -138,7 +138,13 @@ label {
   display: flex;
   width: 17rem;
   height: 17rem;
-  background-color: #d64137;
+  background: radial-gradient(
+    circle at left top,
+    rgb(54, 0, 0) 0,
+    rgb(91, 0, 0),
+    rgb(141, 0, 0),
+    rgb(229, 11, 0) 100%
+  );
 }
 
 #map {
