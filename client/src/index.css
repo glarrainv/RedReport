@@ -190,6 +190,7 @@ label {
 #map {
   margin: auto;
   height: 100vh;
-  width: 75vw;
+  width: 100vw;
   z-index: 1;
+  margin-left: -25vw;
 }
