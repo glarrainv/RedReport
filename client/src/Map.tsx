@@ -1,5 +1,4 @@
 import L from "leaflet";
-import "./App.css";
 import { useEffect, useRef, useState } from "react";
 import "leaflet/dist/leaflet.css";
 import { MaptilerLayer } from "@maptiler/leaflet-maptilersdk";
@@ -109,25 +108,25 @@ function ReactMap() {
       }
       var TypeColor;
       if (point.Type == 0) {
-        TypeColor = "#d00072";
+        TypeColor = "#de9e36";
         NDHalls[point.Dorm][2][0]++;
       } else if (point.Type == 1) {
-        TypeColor = "#ff1100";
+        TypeColor = "#ca3c25";
         NDHalls[point.Dorm][2][1]++;
       } else if (point.Type == 2) {
-        TypeColor = "#ff6a00";
+        TypeColor = "#701d52";
         NDHalls[point.Dorm][2][2]++;
       } else if (point.Type == 3) {
-        TypeColor = "#d0bf00";
+        TypeColor = "#212475";
         NDHalls[point.Dorm][2][3]++;
       } else if (point.Type == 4) {
-        TypeColor = "#000000";
+        TypeColor = "#1d1a05";
         NDHalls[point.Dorm][2][4]++;
       }
       L.circle(NDHalls[point.Dorm][0], {
         color: TypeColor,
         fillColor: TypeColor,
-        fillOpacity: 0.1,
+        fillOpacity: 0,
         radius: 5 * HallNum,
       }).addTo(mapRef.current!);
     });
@@ -143,11 +142,11 @@ function ReactMap() {
         .addTo(mapRef.current!)
         .bindPopup(
           `<h3>${hall}</h3>
-          <p><b>Uncomfortable situation:</b> ${NDHalls[hall][2][0]} </br>
+          <p><b>Uncomfortable Situation:</b> ${NDHalls[hall][2][0]} </br>
           <b>Sexual Harrasment:</b> ${NDHalls[hall][2][1]} </br>
           <b>Physical Agression:</b> ${NDHalls[hall][2][2]} </br>
           <b>Verbal Aggression:</b> ${NDHalls[hall][2][3]} </br>
-          <b>Other Discomfort:</b> ${NDHalls[hall][2][4]} </p>`
+          <b>Discrimination:</b> ${NDHalls[hall][2][4]} </p>`
         );
     });
   }, [Points]);

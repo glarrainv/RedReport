@@ -1,5 +1,4 @@
 import { useState } from "react";
-import "./App.css";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -115,7 +114,7 @@ function App() {
   };
   return (
     <>
-      <div className="circle"></div>
+      <div className="circle largec"></div>
       <div className="autocomplete">
         <label htmlFor="report">Where did you feel unsafe?</label>
         <input
@@ -130,54 +129,52 @@ function App() {
         <div id="list" className="autocomplete-items"></div>
       </div>
       <div className="autocomplete">
-        <label htmlFor="report">
-          Can you classify the incident into any of the following?
-        </label>
-        <div id="type">
-          <button
-            className="purple"
+        <div id="type" className="col">
+          <h3
+            className="button yellow disc"
             onClick={() => {
               SetType(0);
             }}
           >
             Uncomfortable Situation
-          </button>
-          <button
-            className="red"
+          </h3>
+          <h3
+            className="button red disc"
             onClick={() => {
               SetType(1);
             }}
           >
             Sexual Harrasment
-          </button>
-          <button
-            className="orange"
+          </h3>
+          <h3
+            className="button blue disc"
             onClick={() => {
               SetType(2);
             }}
           >
-            Physical Agression
-          </button>
-          <button
-            className="yellow"
+            Physical
+          </h3>
+
+          <h3
+            className="button purple disc"
             onClick={() => {
               SetType(3);
             }}
           >
             Verbal Aggression
-          </button>
-          <button
-            className="black"
+          </h3>
+          <h3
+            className="button black disc"
             onClick={() => {
               SetType(4);
             }}
           >
-            Other Discomfort
-          </button>
+            Discrimination
+          </h3>
         </div>
       </div>
       <button
-        className="submit"
+        className="submit button"
         onClick={() => {
           addData(Hall);
         }}
