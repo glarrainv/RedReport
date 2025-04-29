@@ -82,7 +82,7 @@ input[type="text"] {
   color: #ffffff;
 }
 label {
-  font-size: 30px;
+  font-size: calc(2vw + 2vh);
   text-align: center;
   color: #d64137;
 }
@@ -141,7 +141,7 @@ label {
   height: 2rem;
   margin: 10px 0px 10px 7.5%;
   line-height: 2rem;
-  font-size: 1rem;
+  font-size: calc(1vw + 1vh);
   text-align: center;
   transition: box-shadow 0.4s ease-in-out, transform 0.5s ease-in-out !important;
 }
@@ -155,11 +155,11 @@ label {
   border: 3px solid #d64137;
   background-color: #fff;
   color: #d64137;
-  padding: 10px;
-  font-size: 16px;
-  width: 20%;
+  padding: 5px 0 5px 0;
+  font-size: calc(1vw + 1vh);
+  width: 20vw;
   outline: hidden;
-  margin-left: 40%;
+  margin-left: 15vw;
 }
 
 /* Colors */

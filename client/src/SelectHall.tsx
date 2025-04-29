@@ -116,7 +116,9 @@ function App() {
     <>
       <div className="circle largec"></div>
       <div className="autocomplete">
-        <label htmlFor="report">Where did you feel unsafe?</label>
+        <label htmlFor="report">
+          <b>Where did you feel unsafe?</b>
+        </label>
         <input
           id="report"
           type="text"
