@@ -1,15 +1,13 @@
 
 <p align="center">
 <img src="https://github.com/user-attachments/assets/c10795ff-aeb5-47f8-b2e7-82880c1c63a7"/>
-</p>
-
   
 <a> [![Contributors][contributors-shield]][contributors-url] </a>
 <a> [![Forks][forks-shield]][forks-url] </a>
 <a> [![Stargazers][stars-shield]][stars-url] </a>
 <a> [![Issues][issues-shield]][issues-url]</a>
 <a> [![project_license][license-shield]][license-url] </a>
-
+</p>
 # **Redreport**
 ### *Believing in your own story carries no shame*
 
