@@ -5,7 +5,6 @@ import "animate.css";
 function App() {
   const navigate = useNavigate();
   // TO DO:
-  // Make it detect dorm regardless of special characters or spaces
   // Back button
   // Finish instructions
   // Hashed IP Location NOT MANDATORY
@@ -105,6 +104,7 @@ function App() {
     // When changed complete goes back to false
     SetComplete(false);
     e.classList.remove("completehall");
+    var inputhall = e.value.replace(/[^a-zA-Z0-9]/g, "");
     var list = document.getElementById("list");
     CurrentHalls = [];
     console.log(CurrentHalls);
@@ -114,21 +114,24 @@ function App() {
     for (var hall of Halls) {
       var HallBool = true; //Needs to be pushed
       var Complete = true;
-      for (let char = 0; char < e.value.length; char++) {
+      var cleanhall = hall.replace(/[^a-zA-Z0-9]/g, "");
+      for (let char = 0; char < inputhall.length; char++) {
         if (
-          e.value.length > hall.length ||
-          e.value[char].toLocaleLowerCase() != hall[char].toLocaleLowerCase()
+          inputhall.length > cleanhall.length ||
+          inputhall[char].toLocaleLowerCase() !=
+            cleanhall[char].toLocaleLowerCase()
         ) {
           HallBool = false;
           Complete = false;
         } else if (
-          e.value.length < hall.length ||
-          e.value[char].toLocaleLowerCase() != hall[char].toLocaleLowerCase()
+          inputhall.length < cleanhall.length ||
+          inputhall[char].toLocaleLowerCase() !=
+            cleanhall[char].toLocaleLowerCase()
         ) {
           Complete = false;
         }
       }
-      if (e.value.length == 0) {
+      if (inputhall.length == 0) {
         Complete = false;
       }
       if (HallBool == true) CurrentHalls.push(hall);

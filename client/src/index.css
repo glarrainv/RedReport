@@ -192,7 +192,13 @@ button {
 .button:focus {
   transform: scale(1.1);
 }
-
+.back {
+  background-color: #212475;
+  width: 5vw !important;
+  top: 5vh;
+  left: 0px;
+  opacity: 1 !important;
+}
 /* Discomfort */
 
 .disc {

@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import "leaflet/dist/leaflet.css";
 import { MaptilerLayer } from "@maptiler/leaflet-maptilersdk";
 import React from "react";
+import { href } from "react-router-dom";
 
 var NDHalls: {
   [key: string]: [
@@ -100,35 +101,37 @@ function ReactMap() {
     if (!mapRef.current || Points.length === 0) return;
 
     Points.forEach((point) => {
-      NDHalls[point.Dorm][1]++;
-      if (NDHalls[point.Dorm][1] > 6) {
-        HallNum = 6;
-      } else {
-        HallNum = NDHalls[point.Dorm][1];
-      }
-      var TypeColor;
-      if (point.Type == 0) {
-        TypeColor = "#de9e36";
-        NDHalls[point.Dorm][2][0]++;
-      } else if (point.Type == 1) {
-        TypeColor = "#ca3c25";
-        NDHalls[point.Dorm][2][1]++;
-      } else if (point.Type == 2) {
-        TypeColor = "#701d52";
-        NDHalls[point.Dorm][2][2]++;
-      } else if (point.Type == 3) {
-        TypeColor = "#212475";
-        NDHalls[point.Dorm][2][3]++;
-      } else if (point.Type == 4) {
-        TypeColor = "#1d1a05";
-        NDHalls[point.Dorm][2][4]++;
-      }
-      L.circle(NDHalls[point.Dorm][0], {
-        color: TypeColor,
-        fillColor: TypeColor,
-        fillOpacity: 0,
-        radius: 5 * HallNum,
-      }).addTo(mapRef.current!);
+      try {
+        NDHalls[point.Dorm][1]++;
+        if (NDHalls[point.Dorm][1] > 6) {
+          HallNum = 6;
+        } else {
+          HallNum = NDHalls[point.Dorm][1];
+        }
+        var TypeColor;
+        if (point.Type == 0) {
+          TypeColor = "#de9e36";
+          NDHalls[point.Dorm][2][0]++;
+        } else if (point.Type == 1) {
+          TypeColor = "#ca3c25";
+          NDHalls[point.Dorm][2][1]++;
+        } else if (point.Type == 2) {
+          TypeColor = "#701d52";
+          NDHalls[point.Dorm][2][2]++;
+        } else if (point.Type == 3) {
+          TypeColor = "#212475";
+          NDHalls[point.Dorm][2][3]++;
+        } else if (point.Type == 4) {
+          TypeColor = "#1d1a05";
+          NDHalls[point.Dorm][2][4]++;
+        }
+        L.circle(NDHalls[point.Dorm][0], {
+          color: TypeColor,
+          fillColor: TypeColor,
+          fillOpacity: 0,
+          radius: 5 * HallNum,
+        }).addTo(mapRef.current!);
+      } catch {}
     });
 
     Object.keys(NDHalls).forEach((hall) => {
@@ -151,7 +154,14 @@ function ReactMap() {
     });
   }, [Points]);
 
-  return <div id="map"></div>;
+  return (
+    <>
+      <a href="../">
+        <button className="buttion disc abs back">Back</button>
+      </a>
+      <div id="map"></div>
+    </>
+  );
 }
 
 export default ReactMap;
