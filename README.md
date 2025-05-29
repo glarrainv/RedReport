@@ -37,7 +37,7 @@ It displays the data visually to show the reality of the problem for students an
 | **Moraa**           |[Profiles](https://linktr.ee/JustARandomSquirrelFan)|
 | Erian S.            |          |
 | [Srbth]             |          |
-| [Chnz]              |          |
+| Chinaza             |          |
 
 
 ## Support
