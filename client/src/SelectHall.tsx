@@ -201,7 +201,7 @@ function App() {
   }
 
   return (
-    <div id="root">
+    <>
       <div
         id="underlay"
         onMouseDown={() => {
@@ -353,7 +353,7 @@ function App() {
       >
         Submit
       </button>
-    </div>
+    </>
   );
 }
 

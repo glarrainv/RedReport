@@ -14,7 +14,14 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
+@media (max-width: 600px) {
+  body {
+    zoom: 3;
+  }
+}
+
 .overlay {
   vertical-align: text-top;
 }
@@ -212,8 +219,7 @@ label {
 /* Circle design */
 
 .circle {
-  justify-content: center;
-  margin: auto;
+  margin-left: calc(22vw - 3rem);
   border-radius: 50%;
   box-shadow: inset -10px -10px 20px rgba(255, 255, 255, 0.3),
     inset 10px 10px 20px rgba(0, 0, 0, 0.4), 0 10px 20px rgba(0, 0, 0, 0.2);
