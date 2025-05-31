@@ -14,18 +14,65 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+.overlay {
+  vertical-align: text-top;
+}
 .inst {
   color: black;
   position: absolute;
-  left: -8vw;
-  bottom: 16vh;
-  rotate: 292.5deg;
+  margin-left: -9em;
+  margin-top: -3.8em;
+  font-size: 1em;
+  font-weight: 600;
+}
+.insth .inst2 {
+  margin-top: -15em;
+}
+.inst2 {
+  color: black;
+  position: absolute;
+  margin-left: 5vw;
+  font-size: 1.5em;
+  font-weight: 500 !important;
+  rotate: 45deg;
+  margin-top: 0.2em;
+  font-weight: 100;
+}
+.insth {
+  display: none !important;
+}
+.insth.arrow {
+  margin-left: -2.3em !important;
+}
+.insth.inst {
+  margin-left: -10em !important;
 }
 .arrow {
   position: absolute;
-  left: 1vw;
-  bottom: 16vh;
+  left: 0vw;
+  margin-top: -3.8em;
+}
+
+.note {
+  opacity: 0.5;
+  font-weight: 100 !important;
+}
+.rotate {
   rotate: 292.5deg;
+}
+.brackcont {
+  display: flex;
+  align-items: flex-start;
+  vertical-align: text-top;
+  height: 20em;
+  margin-left: 48vw;
+  position: absolute;
+}
+.bracket {
+  color: black;
+  margin-top: -0.2em;
+  font-size: 10em;
+  font-weight: 100;
 }
 .abs {
   position: absolute;

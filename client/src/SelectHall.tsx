@@ -51,6 +51,7 @@ function App() {
 
   const [Hall, SetHall] = useState<string>("");
   const [Type, SetType] = useState<number>();
+  const [InstH, SetInstH] = useState<boolean>(false);
   const [Complete, SetComplete] = useState<boolean>(false);
   var CurrentHalls: Array<string> = [];
   var First = true;
@@ -74,7 +75,6 @@ function App() {
     };
     list?.appendChild(item);
   }
-
   function ForceDeleteHalls() {
     var list = document.getElementById("list");
     if (CurrentHalls.length == Halls.length || Complete) {
@@ -183,8 +183,32 @@ function App() {
       i.classList.replace("animate__fadeInDown", "animate__fadeOut");
     }
   }
+  function Inst() {
+    console.log("Run");
+    var instruction = document.getElementsByClassName("insth");
+
+    for (var i = 0; i < instruction.length; i++) {
+      console.log((instruction[i] as HTMLElement).style.display);
+      if (InstH == false) {
+        (instruction[i] as HTMLElement).style = "display: none !important";
+        (instruction[i] as HTMLElement).classList.replace(
+          "animate__fadeIn",
+          "animate__fadeOut"
+        );
+        SetInstH(true);
+      } else {
+        (instruction[i] as HTMLElement).style = "display: block !important";
+        (instruction[i] as HTMLElement).classList.replace(
+          "animate__fadeOut",
+          "animate__fadeIn"
+        );
+        SetInstH(false);
+      }
+    }
+  }
+
   return (
-    <>
+    <div id="root">
       <div
         id="underlay"
         onMouseDown={() => {
@@ -200,7 +224,7 @@ function App() {
       >
         <div className="animate__animated animate__fadeInDown animate__delay-1s">
           <h3>
-            <b>Redreport</b> Campus Safety Tool
+            <b>Redreport</b> ND Campus Safety Tool
           </h3>
           <h3>
             <b>Instructions</b>
@@ -209,7 +233,12 @@ function App() {
           <h6 className="note">Click anywhere to access the form</h6>
         </div>
       </div>
-      <div className="circle largec"></div>
+      <div
+        onClick={() => {
+          Inst();
+        }}
+        className="circle largec"
+      ></div>
       <div className="autocomplete">
         <label htmlFor="report" id="DormQ">
           <b>Where did you feel unsafe?</b>
@@ -220,14 +249,22 @@ function App() {
             Hide(e.currentTarget);
           }}
         >
-          <h6 className="inst">Enter a campus location</h6>
+          <h6 className="inst rotate">Enter a campus location</h6>
           <img
-            className="arrow"
-            src="../client/arrow.svg"
+            className="arrow rotate"
+            src="https://raw.githubusercontent.com/CaptainSquid9/RedReport/6058b146b4556500a4988f5214dc23c47a0754b6/client/arrow.svg"
             height={"75px"}
           ></img>
           <input type="text" className="overlay" />
         </div>
+        <h6 className="inst insth rotate animate__animated animate__fadeOut">
+          Enter a campus location
+        </h6>
+        <img
+          className="arrow rotate insth animate__animated animate__fadeOut"
+          src="https://raw.githubusercontent.com/CaptainSquid9/RedReport/6058b146b4556500a4988f5214dc23c47a0754b6/client/arrow.svg"
+          height={"75px"}
+        ></img>
         <input
           id="report"
           type="text"
@@ -255,11 +292,20 @@ function App() {
               Hide(e.currentTarget);
             }}
           >
+            <div className="brackcont">
+              <h3 className="bracket">{"}"}</h3>
+              <h3 className="inst2">What happened?</h3>
+            </div>
+
             <div className="button yellow disc od"></div>
             <div className="button red disc od"></div>
             <div className="button blue disc od"></div>
             <div className="button purple disc od"></div>
             <div className="button black disc od"></div>
+          </div>
+          <div className="brackcont insth animate__animated animate__fadeOut">
+            <h3 className="bracket">{"}"}</h3>
+            <h3 className="inst2">What happened?</h3>
           </div>
           <div>
             <button
@@ -314,7 +360,7 @@ function App() {
       >
         Submit
       </button>
-    </>
+    </div>
   );
 }
 
