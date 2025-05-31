@@ -5,11 +5,11 @@ import "./animateu.css";
 function App() {
   const navigate = useNavigate();
   // TO DO:
-  // Back button
   // Finish instructions
   // Hashed IP Location NOT MANDATORY
-  // Tme feature for map
+  // Time feature for map
   // Add feautures for testing
+  // VIDEO
   const NDHalls: { [key: string]: string } = {
     Alumni: "Dorm",
     Badin: "Dorm",
@@ -206,7 +206,7 @@ function App() {
             <b>Instructions</b>
           </h3>
           <p>Believing in your own story carries no shame </p>
-          <h6>Click anywhere to access the form</h6>
+          <h6 className="note">Click anywhere to access the form</h6>
         </div>
       </div>
       <div className="circle largec"></div>
@@ -220,6 +220,12 @@ function App() {
             Hide(e.currentTarget);
           }}
         >
+          <h6 className="inst">Enter a campus location</h6>
+          <img
+            className="arrow"
+            src="../client/arrow.svg"
+            height={"75px"}
+          ></img>
           <input type="text" className="overlay" />
         </div>
         <input
