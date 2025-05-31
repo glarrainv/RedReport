@@ -37,7 +37,7 @@ It displays the data visually to show the reality of the problem for students an
 | **Moraa**           |[Profiles](https://linktr.ee/JustARandomSquirrelFan)|
 | Erian S.            |          |
 | [Srbth]             |          |
-| [Chnz]              |          |
+| Chinaza             |          |
 
 
 ## Support
@@ -57,4 +57,4 @@ For any recommendations, questions or comments please email glarrain@nd.edu
 [issues-shield]: https://img.shields.io/github/issues/CaptainSquid9/RedReport.svg?style=for-the-badge
 [issues-url]: https://github.com/CaptainSquid9/RedReport/issues
 [license-shield]: https://img.shields.io/github/license/CaptainSquid9/RedReport.svg?style=for-the-badge
-[license-url]: https://github.com/CaptainSquid9/RedReport/blob/master/LICENSE.txt
+[license-url]: https://github.com/CaptainSquid9/RedReport/blob/main/LICENSE
