@@ -188,20 +188,13 @@ function App() {
     var instruction = document.getElementsByClassName("insth");
 
     for (var i = 0; i < instruction.length; i++) {
-      console.log((instruction[i] as HTMLElement).style.display);
       if (InstH == false) {
-        (instruction[i] as HTMLElement).style = "display: none !important";
-        (instruction[i] as HTMLElement).classList.replace(
-          "animate__fadeIn",
-          "animate__fadeOut"
-        );
+        instruction[i].setAttribute("style", "display: none !important;");
+        instruction[i].classList.replace("animate__fadeIn", "animate__fadeOut");
         SetInstH(true);
       } else {
-        (instruction[i] as HTMLElement).style = "display: block !important";
-        (instruction[i] as HTMLElement).classList.replace(
-          "animate__fadeOut",
-          "animate__fadeIn"
-        );
+        instruction[i].setAttribute("style", "display: block !important;");
+        instruction[i].classList.replace("animate__fadeOut", "animate__fadeIn");
         SetInstH(false);
       }
     }
