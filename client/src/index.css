@@ -2,9 +2,11 @@
 
 :root {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
+  line-height: 1.5;
   font-weight: 400;
   width: 80vw;
   height: 100vh;
+  margin-left: 25vw;
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
   background-color: #fff;
@@ -13,6 +15,11 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+}
+@media (max-width: 600px) {
+  body {
+    zoom: 3;
+  }
 }
 
 .overlay {
@@ -92,15 +99,11 @@
   bottom: 0;
   z-index: -1;
 }
-.cont {
-  margin-left: 25vw;
-}
 
 #overlay {
   position: absolute;
-  width: 100vw;
-  height: 100vh;
-  padding-top: 5vh;
+  width: 100%;
+  height: 100%;
   top: 0;
   left: 0;
   right: 0;
@@ -109,18 +112,13 @@
   z-index: 5;
   cursor: pointer;
 }
-#overlay .cont {
-  margin-top: calc(25vh - 5vw);
-}
+
 #overlay h3 {
+  margin: 0em;
   font-weight: 700;
-  font-size: calc(2.5vw + 1.5vh);
+  font-size: calc(3vw + 3vh);
   text-align: center;
   color: #1d1a05;
-  margin-block-start: 0em;
-  margin-block-end: 0em;
-  margin-block-start: 0.1em;
-  margin-block-end: 0.1em;
 }
 #overlay p,
 #overlay h6 {
@@ -148,7 +146,6 @@ body {
   display: flex;
   place-items: center;
   min-height: 100vh;
-  width: 100vw;
 }
 
 h1 {
@@ -176,7 +173,7 @@ input {
 input[type="text"] {
   background-color: #fff;
   color: #d64137;
-  width: calc(48vw - 8px);
+  width: 95%;
   height: 2rem;
   outline: none;
   transition: border-color 0.5s ease-in-out, color 0.5s ease-in-out;
@@ -264,7 +261,7 @@ button {
   background-color: #212475;
   width: 5vw !important;
   top: 5vh;
-  left: 5vw;
+  left: 0px;
   opacity: 1 !important;
 }
 /* Discomfort */
@@ -277,7 +274,7 @@ button {
   width: 44vw;
   transform-origin: center;
   height: 2rem;
-  margin: 0px 0px 10px 2vw;
+  margin: 0px 2vw 10px 2vw;
   line-height: 2rem;
   font-size: calc(1vw + 1vh);
   text-align: center;
@@ -331,13 +328,11 @@ button {
   border: none;
 }
 /* Map */
-#root {
-  width: 100vw;
-}
 
 #map {
   margin: auto;
   height: 100vh;
   width: 100vw;
   z-index: 1;
+  margin-left: -25vw;
 }
