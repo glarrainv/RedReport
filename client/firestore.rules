@@ -1,0 +1,18 @@
+// firestore.rules
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Test collection rules
+    match /Test/{document} {
+      allow read: if true; // Public read for map display
+      allow write: if request.time < timestamp.date(2025, 12, 31); // Temporary write access
+    }
+    
+    // More secure rules for production
+    match /Reports/{document} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null && 
+                   request.resource.data.keys().hasAll(['Dorm', 'Type', 'Time']);
+    }
+  }
+}

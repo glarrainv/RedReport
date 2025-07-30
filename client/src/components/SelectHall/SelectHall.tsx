@@ -1,53 +1,25 @@
 import { useState } from "react";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import "./animateu.css";
-function App() {
+import { NDHalls, NDHallsWithCoordinates } from "../../data/hallsData.ts";
+import { FirebaseService } from "../../services/firebaseService.ts";
+import { AnalyticsService } from "../../services/analyticsService.ts";
+import { ReportFormData } from "../../types/index.ts";
+import {
+  getUserContext,
+  getIncidentTypeName,
+  getIncidentSeverity,
+} from "../../utils/deviceUtils.ts";
+import "../../animateu.css";
+
+interface SelectHallProps {
+  onHallSelect?: (hall: string) => void;
+  onTypeSelect?: (type: number) => void;
+  onSubmit?: (data: ReportFormData) => void;
+}
+
+function SelectHall({ onHallSelect, onTypeSelect, onSubmit }: SelectHallProps) {
   const navigate = useNavigate();
-  // TO DO:
-  // Finish instructions
-  // Hashed IP Location NOT MANDATORY
-  // Time feature for map
-  // Add feautures for testing
-  // VIDEO
-  const NDHalls: { [key: string]: string } = {
-    Alumni: "Dorm",
-    Badin: "Dorm",
-    Baumer: "Dorm",
-    "Breen-Phillips": "Dorm",
-    Carroll: "Dorm",
-    Cavanaugh: "Dorm",
-    "Coleman Morse": "Academic Building",
-    Dillon: "Dorm",
-    Duncan: "Dorm",
-    "Duncan Student Center": "Student Building",
-    Dunne: "Dorm",
-    Farley: "Dorm",
-    Fisher: "Dorm",
-    Flaherty: "Dorm",
-    Graham: "Dorm",
-    Hesburgh: "Academic Building",
-    Howard: "Dorm",
-    "Johnson Family": "Dorm",
-    Keenan: "Dorm",
-    Keough: "Dorm",
-    Knott: "Dorm",
-    Lewis: "Dorm",
-    Lyons: "Dorm",
-    McGlinn: "Dorm",
-    Morrissey: "Dorm",
-    "O Neill": "Dorm",
-    "Pasquerilla East": "Dorm",
-    "Pasquerilla West": "Dorm",
-    Ryan: "Dorm",
-    Siegfried: "Dorm",
-    Sorin: "Dorm",
-    "St. Edward's": "Dorm",
-    Stanford: "Dorm",
-    Walsh: "Dorm",
-    "Welsh Family": "Dorm",
-    Zahm: "Dorm",
-  };
 
   const [Hall, SetHall] = useState<string>("");
   const [Type, SetType] = useState<number>();
@@ -55,7 +27,7 @@ function App() {
   const [Complete, SetComplete] = useState<boolean>(false);
   var CurrentHalls: Array<string> = [];
   var First = true;
-  var Halls = Object.keys(NDHalls);
+  var Halls = NDHalls.map((hall) => hall.name);
 
   function CreateHallList(
     hall: string,
@@ -64,17 +36,24 @@ function App() {
   ) {
     const item = document.createElement("div");
     item.id = hall;
-    item.innerHTML = `${hall} (${NDHalls[hall]})`;
+    const hallData = NDHalls.find((h) => h.name === hall);
+    item.innerHTML = `${hall} (${hallData?.buildingType || "Unknown"})`;
     item.onclick = () => {
       e.value = hall;
       SetHall(hall);
       CompleteHall(hall);
+      onHallSelect?.(hall);
+      AnalyticsService.logHallSelection(
+        hall,
+        hallData?.buildingType || "Unknown"
+      );
       while (list?.firstChild) {
         list.firstChild.remove();
       }
     };
     list?.appendChild(item);
   }
+
   function ForceDeleteHalls() {
     var list = document.getElementById("list");
     if (CurrentHalls.length == Halls.length || Complete) {
@@ -85,6 +64,7 @@ function App() {
       CurrentHalls = [];
     }
   }
+
   function ListHalls(e: HTMLInputElement) {
     var list = document.getElementById("list");
     if (First == true) {
@@ -100,6 +80,7 @@ function App() {
       }
     }
   }
+
   function AutoCompleteHall(e: HTMLInputElement) {
     // When changed complete goes back to false
     SetComplete(false);
@@ -143,6 +124,7 @@ function App() {
       }
     }
   }
+
   //Handle visuals when a dorm is selected
   function CompleteHall(hall: string) {
     var e = document.getElementById("report");
@@ -150,30 +132,82 @@ function App() {
     SetComplete(true);
     console.log("Ran");
   }
+
   //Submit to Database
   const addData = async (e: string) => {
     if (!Complete) {
       alert("No Hall Selected");
       return;
     }
-    try {
-      const response = await fetch("https://red-report.vercel.app/api/upload", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          Dorm: e,
-          Type: Type, // This comes from your state
-        }),
-      });
 
-      if (!response.ok) {
-        throw new Error("Failed to report case");
-      }
+    if (Type === undefined) {
+      alert("Please select an incident type");
+      return;
+    }
+
+    try {
+      // Get comprehensive hall data
+      const hallData = NDHalls.find((h) => h.name === e);
+      const hallWithCoordinates = NDHallsWithCoordinates.find(
+        (h) => h.name === e
+      );
+
+      // Get user context information
+      const userContext = getUserContext();
+
+      // Create enhanced report data
+      const enhancedReportData = {
+        Dorm: e,
+        Type,
+        hallData: hallData
+          ? {
+              name: hallData.name,
+              location: hallData.location,
+              buildingType: hallData.buildingType,
+              latitude: hallWithCoordinates?.latitude,
+              longitude: hallWithCoordinates?.longitude,
+            }
+          : undefined,
+        userAgent: userContext.deviceInfo.userAgent,
+        timestamp: userContext.timestamp,
+        sessionId: userContext.sessionId,
+        deviceInfo: {
+          platform: userContext.deviceInfo.platform,
+          browser: userContext.deviceInfo.browser,
+          screenResolution: userContext.deviceInfo.screenResolution,
+        },
+        incidentDetails: {
+          typeName: getIncidentTypeName(Type),
+          severity: getIncidentSeverity(Type),
+        },
+      };
+
+      onSubmit?.(enhancedReportData);
+
+      await FirebaseService.submitReport(enhancedReportData);
+      AnalyticsService.logReportSubmission(
+        e,
+        Type,
+        hallData,
+        userContext.deviceInfo
+      );
+      AnalyticsService.logIncidentSeverity(
+        getIncidentSeverity(Type),
+        getIncidentTypeName(Type)
+      );
+      AnalyticsService.logGeographicAnalysis(
+        hallData?.location || "Unknown",
+        hallWithCoordinates?.latitude,
+        hallWithCoordinates?.longitude
+      );
+
       navigate("/map");
     } catch (error) {
-      alert("Error: " + error);
+      console.error("Error submitting report:", error);
+      alert("Error submitting report. Please try again.");
     }
   };
+
   function Hide(e: HTMLElement) {
     var x: HTMLCollectionOf<Element> =
       e.ownerDocument.getElementsByClassName("overlay");
@@ -183,6 +217,7 @@ function App() {
       i.classList.replace("animate__fadeInDown", "animate__fadeOut");
     }
   }
+
   function Inst() {
     console.log("Run");
     var instruction = document.getElementsByClassName("insth");
@@ -199,6 +234,12 @@ function App() {
       }
     }
   }
+
+  const handleTypeSelect = (type: number, typeName: string) => {
+    SetType(type);
+    onTypeSelect?.(type);
+    AnalyticsService.logTypeSelection(type, typeName);
+  };
 
   return (
     <>
@@ -303,42 +344,32 @@ function App() {
           <div>
             <button
               className="button yellow disc"
-              onClick={() => {
-                SetType(0);
-              }}
+              onClick={() => handleTypeSelect(0, "Uncomfortable Situation")}
             >
               Uncomfortable Situation
             </button>
             <button
               className="button red disc"
-              onClick={() => {
-                SetType(1);
-              }}
+              onClick={() => handleTypeSelect(1, "Sexual Harassment")}
             >
-              Sexual Harrasment
+              Sexual Harassment
             </button>
             <button
               className="button blue disc"
-              onClick={() => {
-                SetType(2);
-              }}
+              onClick={() => handleTypeSelect(2, "Physical")}
             >
               Physical
             </button>
 
             <button
               className="button purple disc"
-              onClick={() => {
-                SetType(3);
-              }}
+              onClick={() => handleTypeSelect(3, "Verbal Aggression")}
             >
               Verbal Aggression
             </button>
             <button
               className="button black disc"
-              onClick={() => {
-                SetType(4);
-              }}
+              onClick={() => handleTypeSelect(4, "Discrimination")}
             >
               Discrimination
             </button>
@@ -357,4 +388,4 @@ function App() {
   );
 }
 
-export default App;
+export default SelectHall;
