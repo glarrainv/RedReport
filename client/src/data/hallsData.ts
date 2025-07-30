@@ -1,4 +1,4 @@
-import { HallData, HallDataWithCoordinates } from "../types";
+import { HallData, HallDataWithCoordinates } from "../types/index.ts";
 
 // Hall data for SelectHall component
 export const NDHalls: HallData[] = [
