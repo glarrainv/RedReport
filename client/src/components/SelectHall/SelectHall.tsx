@@ -305,32 +305,47 @@ function SelectHall({ onHallSelect, onTypeSelect, onSubmit }: SelectHallProps) {
         <div className="mt-2">
           <button
             className="button yellowbg base"
-            onClick={() => handleTypeSelect(0, "Uncomfortable Situation")}
+            onClick={(e) => {
+              e.currentTarget.focus();
+              handleTypeSelect(0, "Uncomfortable Situation");
+            }}
           >
             Uncomfortable Situation
           </button>
           <button
             className="button redbg base"
-            onClick={() => handleTypeSelect(1, "Sexual Harassment")}
+            onClick={(e) => {
+              e.currentTarget.focus();
+              handleTypeSelect(1, "Sexual Harassment");
+            }}
           >
             Sexual Harassment
           </button>
           <button
             className="button purplebg base"
-            onClick={() => handleTypeSelect(2, "Physical")}
+            onClick={(e) => {
+              e.currentTarget.focus();
+              handleTypeSelect(2, "Physical");
+            }}
           >
             Physical
           </button>
 
           <button
             className="button bluebg base"
-            onClick={() => handleTypeSelect(3, "Verbal Aggression")}
+            onClick={(e) => {
+              e.currentTarget.focus();
+              handleTypeSelect(3, "Verbal Aggression");
+            }}
           >
             Verbal Aggression
           </button>
           <button
             className="button blackbg base"
-            onClick={() => handleTypeSelect(4, "Discrimination")}
+            onClick={(e) => {
+              e.currentTarget.focus();
+              handleTypeSelect(4, "Discrimination");
+            }}
           >
             Discrimination
           </button>

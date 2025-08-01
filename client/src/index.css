@@ -275,27 +275,38 @@ h6 {
 /* Background Colors */
 .yellowbg {
   background-color: #de9e36;
+  color: var(--background-color);
+  text-decoration: none;
 }
 
 .redbg {
   background-color: var(--accent-color);
+  color: var(--background-color);
+  text-decoration: none;
 }
 
 .purplebg {
   background-color: #701d52;
+  color: var(--background-color);
+  text-decoration: none;
 }
 
 .bluebg {
   background-color: #212475;
+  color: var(--background-color);
+  text-decoration: none;
 }
 
 .blackbg {
   background-color: var(--secondary-color);
+  color: var(--background-color);
+  text-decoration: none;
 }
 
 .whitebg {
   background-color: var(--background-color);
   color: var(--accent-color);
+  text-decoration: none;
   box-shadow: none;
 }
 
@@ -620,4 +631,39 @@ h6 {
 
 .filter-content::-webkit-scrollbar-thumb:hover {
   background: #a8a8a8;
+}
+
+/* Custom circular colored checkboxes for incident types */
+.type-checkbox.custom-circle-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--text-color);
+  user-select: none;
+}
+
+.type-color-dot-circle {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: border 0.2s, box-shadow 0.2s;
+  box-shadow: 0 0 0 1.5px #bbb;
+  position: relative;
+}
+
+.type-color-dot-circle.selected {
+  border: 2.5px solid #222;
+  box-shadow: 0 0 0 2.5px #fff, 0 0 0 4px var(--accent-color, #ca3c25);
+}
+
+.type-color-dot-circle svg {
+  width: 12px;
+  height: 12px;
+  pointer-events: none;
 }

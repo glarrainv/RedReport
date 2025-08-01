@@ -270,7 +270,7 @@ function Map({ reports = [], onReportClick }: MapProps) {
     Object.values(mapPoints).forEach((mapPoint) => {
       if (mapPoint.totalIncidents > 0) {
         // Determine circle size based on total incidents
-        const circleSize = Math.min(mapPoint.totalIncidents * 5, 30);
+        const circleSize = Math.min(mapPoint.totalIncidents * 10 + 15, 100);
 
         // Determine color based on most common incident type
         const mostCommonType = Object.entries(mapPoint.incidentCounts).sort(
@@ -300,11 +300,21 @@ function Map({ reports = [], onReportClick }: MapProps) {
         // Create detailed popup with enhanced information
         const popupContent = createEnhancedPopup(mapPoint);
 
+        // Determine campus-based color and border
+        let fillColor = "black";
+        if (mapPoint.location === "Notre Dame") {
+          fillColor = "#FFD700"; // gold
+        } else if (mapPoint.location === "Holy Cross") {
+          fillColor = "#fff";
+        } else if (mapPoint.location === "Saint Mary's") {
+          fillColor = "#87CEEB"; // light blue
+        }
+
         L.circle(mapPoint.coordinates, {
-          color: "black",
-          fillColor: "black",
-          fillOpacity: 0.9,
-          radius: 3,
+          fillColor: fillColor,
+          fillOpacity: 0.5,
+          color: fillColor,
+          radius: 15,
         })
           .addTo(mapRef.current!)
           .bindPopup(popupContent, {
@@ -411,7 +421,7 @@ function Map({ reports = [], onReportClick }: MapProps) {
   return (
     <div className="fullscreen-map-container">
       {/* Filter Menu */}
-      <div className={`map-filter-menu ${filters.showMenu ? "menu-open" : ""}`}>
+      <div className={`map-filter-menu`}>
         <button
           className="menu-toggle-btn"
           onClick={() => handleFilterChange("showMenu", !filters.showMenu)}
@@ -419,99 +429,132 @@ function Map({ reports = [], onReportClick }: MapProps) {
           {filters.showMenu ? "✕" : "☰"}
         </button>
 
-        <div className="filter-content">
-          <h3>Map Filters</h3>
+        {/* Only show filter content if menu is open */}
+        {filters.showMenu && (
+          <div className="filter-content">
+            <h3>Map Filters</h3>
 
-          {/* Campus Filter */}
-          <div className="filter-section">
-            <label>Campus:</label>
-            <select
-              value={filters.selectedCampus}
-              onChange={(e) => {
-                handleFilterChange("selectedCampus", e.target.value);
-                navigateToCampus(e.target.value);
-              }}
-            >
-              {campuses.map((campus) => (
-                <option key={campus} value={campus}>
-                  {campus}
-                </option>
-              ))}
-            </select>
-          </div>
+            {/* Campus Filter */}
+            <div className="filter-section">
+              <label>Campus:</label>
+              <select
+                value={filters.selectedCampus}
+                onChange={(e) => {
+                  handleFilterChange("selectedCampus", e.target.value);
+                  navigateToCampus(e.target.value);
+                }}
+              >
+                {campuses.map((campus) => (
+                  <option key={campus} value={campus}>
+                    {campus}
+                  </option>
+                ))}
+              </select>
+            </div>
 
-          {/* Month Filter */}
-          <div className="filter-section">
-            <label>Month:</label>
-            <select
-              value={filters.selectedMonth}
-              onChange={(e) =>
-                handleFilterChange("selectedMonth", e.target.value)
+            {/* Month Filter */}
+            <div className="filter-section">
+              <label>Month:</label>
+              <select
+                value={filters.selectedMonth}
+                onChange={(e) =>
+                  handleFilterChange("selectedMonth", e.target.value)
+                }
+              >
+                {getAvailableMonths().map((month) => (
+                  <option key={month} value={month}>
+                    {month === "All" ? "All Time" : month}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* Incident Type Filter */}
+            <div className="filter-section">
+              <label>Incident Types:</label>
+              <div className="type-filters">
+                {incidentTypes.map((type) => (
+                  <label
+                    key={type.id}
+                    className="type-checkbox custom-circle-checkbox"
+                    style={{ cursor: "pointer" }}
+                  >
+                    <input
+                      type="checkbox"
+                      checked={filters.selectedTypes.includes(type.id)}
+                      onChange={() => toggleIncidentType(type.id)}
+                      style={{ display: "none" }}
+                    />
+                    <span
+                      className={`type-color-dot-circle ${
+                        filters.selectedTypes.includes(type.id)
+                          ? "selected"
+                          : ""
+                      }`}
+                      style={{
+                        backgroundColor: type.color,
+                        borderColor: type.color,
+                      }}
+                    >
+                      {filters.selectedTypes.includes(type.id) && (
+                        <svg
+                          width="16"
+                          height="16"
+                          viewBox="0 0 16 16"
+                          style={{
+                            display: "block",
+                            margin: "auto",
+                          }}
+                        >
+                          <circle
+                            cx="13"
+                            cy="13"
+                            r="10"
+                            fill="#fff"
+                            opacity="0.8"
+                          />
+                        </svg>
+                      )}
+                    </span>
+                    <span style={{ marginLeft: 8 }}>{type.name}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+            {/* Clear Filters */}
+            <button
+              className="clear-filters-btn"
+              onClick={() =>
+                setFilters({
+                  selectedCampus: "All",
+                  selectedMonth: "All",
+                  selectedTypes: [],
+                  showMenu: filters.showMenu,
+                })
               }
             >
-              {getAvailableMonths().map((month) => (
-                <option key={month} value={month}>
-                  {month === "All" ? "All Time" : month}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          {/* Incident Type Filter */}
-          <div className="filter-section">
-            <label>Incident Types:</label>
-            <div className="type-filters">
-              {incidentTypes.map((type) => (
-                <label key={type.id} className="type-checkbox">
-                  <input
-                    type="checkbox"
-                    checked={filters.selectedTypes.includes(type.id)}
-                    onChange={() => toggleIncidentType(type.id)}
-                  />
-                  <span
-                    className="type-color-dot"
-                    style={{ backgroundColor: type.color }}
-                  ></span>
-                  {type.name}
-                </label>
-              ))}
+              Clear All Filters
+            </button>
+            {/* Results Summary */}
+            <div className="results-summary">
+              <p>Showing {filteredPoints.length} incidents</p>
+              {filters.selectedCampus !== "All" && (
+                <p>Campus: {filters.selectedCampus}</p>
+              )}
+              {filters.selectedMonth !== "All" && (
+                <p>Period: {filters.selectedMonth}</p>
+              )}
+              {filters.selectedTypes.length > 0 && (
+                <p>
+                  Types:{" "}
+                  {filters.selectedTypes
+                    .map((id) => incidentTypes.find((t) => t.id === id)?.name)
+                    .join(", ")}
+                </p>
+              )}
             </div>
           </div>
-
-          {/* Clear Filters */}
-          <button
-            className="clear-filters-btn"
-            onClick={() =>
-              setFilters({
-                selectedCampus: "All",
-                selectedMonth: "All",
-                selectedTypes: [],
-                showMenu: filters.showMenu,
-              })
-            }
-          >
-            Clear All Filters
-          </button>
-
-          {/* Results Summary */}
-          <div className="results-summary">
-            <p>Showing {filteredPoints.length} incidents</p>
-            {filters.selectedCampus !== "All" && (
-              <p>Campus: {filters.selectedCampus}</p>
-            )}
-            {filters.selectedMonth !== "All" && (
-              <p>Period: {filters.selectedMonth}</p>
-            )}
-            {filters.selectedTypes.length > 0 && (
-              <p>
-                Types:{" "}
-                {filters.selectedTypes
-                  .map((id) => incidentTypes.find((t) => t.id === id)?.name)
-                  .join(", ")}
-              </p>
-            )}
-          </div>
-        </div>
+        )}
       </div>
 
       {/* Back Button */}
