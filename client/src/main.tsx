@@ -12,6 +12,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <Route path="/" element={<SelectHall />} />
         <Route path="/client" element={<SelectHall />} />
         <Route path="/map" element={<Map />} />
+        <Route path="/client/map" element={<Map />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

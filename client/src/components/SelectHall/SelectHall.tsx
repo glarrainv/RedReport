@@ -8,7 +8,6 @@ import { ReportFormData } from "../../types/index.ts";
 import {
   getUserContext,
   getIncidentTypeName,
-  getIncidentSeverity,
 } from "../../utils/deviceUtils.ts";
 import "../../animateu.css";
 
@@ -178,7 +177,6 @@ function SelectHall({ onHallSelect, onTypeSelect, onSubmit }: SelectHallProps) {
         },
         incidentDetails: {
           typeName: getIncidentTypeName(Type),
-          severity: getIncidentSeverity(Type),
         },
       };
 
@@ -190,10 +188,6 @@ function SelectHall({ onHallSelect, onTypeSelect, onSubmit }: SelectHallProps) {
         Type,
         hallData,
         userContext.deviceInfo
-      );
-      AnalyticsService.logIncidentSeverity(
-        getIncidentSeverity(Type),
-        getIncidentTypeName(Type)
       );
       AnalyticsService.logGeographicAnalysis(
         hallData?.location || "Unknown",
@@ -218,20 +212,13 @@ function SelectHall({ onHallSelect, onTypeSelect, onSubmit }: SelectHallProps) {
     }
   }
 
-  function Inst() {
-    console.log("Run");
-    var instruction = document.getElementsByClassName("insth");
+  function Show(e: HTMLElement) {
+    var x: HTMLCollectionOf<Element> =
+      e.ownerDocument.getElementsByClassName("overlay");
 
-    for (var i = 0; i < instruction.length; i++) {
-      if (InstH == false) {
-        instruction[i].setAttribute("style", "display: none !important;");
-        instruction[i].classList.replace("animate__fadeIn", "animate__fadeOut");
-        SetInstH(true);
-      } else {
-        instruction[i].setAttribute("style", "display: block !important;");
-        instruction[i].classList.replace("animate__fadeOut", "animate__fadeIn");
-        SetInstH(false);
-      }
+    for (const i of x) {
+      i.classList.replace("animate__fadeOut", "animate__fadeIn");
+      i.classList.add("animate__fadeInDown");
     }
   }
 
@@ -243,147 +230,120 @@ function SelectHall({ onHallSelect, onTypeSelect, onSubmit }: SelectHallProps) {
 
   return (
     <>
-      <div
-        id="underlay"
-        onMouseDown={() => {
-          ForceDeleteHalls();
-        }}
-      ></div>
+      <div id="underlay" className="underlay"></div>
       <div
         id="overlay"
-        className="animate__animated animate__fadeIn overlay"
+        className="animate__animated animate__fadeIn overlay cont"
         onClick={(e) => {
           Hide(e.currentTarget);
         }}
       >
-        <div className="animate__animated animate__fadeInDown animate__delay-1s">
-          <h3>
-            <b>Redreport</b> ND Campus Safety Tool
+        <div className="animate__animated animate__fadeInDown animate__delay-1s col">
+          <h3 className="xxlarge">
+            <b className="red">Redreport</b> ND Campus Safety Tool
+            <b className="red"> Instructions</b>
           </h3>
-          <h3>
-            <b>Instructions</b>
-          </h3>
-          <p>Believing in your own story carries no shame </p>
-          <h6 className="note">Click anywhere to access the form</h6>
+          <p className="small">
+            <i>You don't need to suffer alone</i>
+          </p>
+          <h6 className="small">Click anywhere to access the form</h6>
+          <div className="jus-center m-2">
+            <div className="chatbubble bubble small flip animate__animated animate__fadeInDown animate__delay-2s">
+              Enter a HCC/ND/SMC campus location
+            </div>
+            <input type="text" className="w-50" />
+          </div>
+          <div className="just-cent">
+            <div className="chatbubble bubble small animate__animated animate__fadeInDown animate__delay-2s">
+              Pick the appropiate option
+            </div>
+            <div className="button yellowbg"></div>
+            <div className="button redbg"></div>
+            <div className="button bluebg"></div>
+            <div className="button purplebg"></div>
+            <div className="button blackbg"></div>
+          </div>
         </div>
       </div>
-      <div
-        onClick={() => {
-          Inst();
-        }}
-        className="circle largec"
-      ></div>
-      <div className="autocomplete">
-        <label htmlFor="report" id="DormQ">
-          <b>Where did you feel unsafe?</b>
-        </label>
+      <div className="cont">
+        <div className="just-cent">
+          <div
+            onClick={(e) => {
+              Show(e.currentTarget);
+            }}
+            className="circle"
+          ></div>
+        </div>
+
+        <div>
+          <label htmlFor="report" id="DormQ">
+            <b>Where did you feel unsafe?</b>
+          </label>
+          <h6>Enter a campus location</h6>
+          <input
+            id="report"
+            type="text"
+            name="report"
+            placeholder="Alumni"
+            onClick={(e) => {
+              ListHalls(e.currentTarget);
+            }}
+            onInputCapture={(e) => {
+              AutoCompleteHall(e.currentTarget);
+            }}
+          />
+          <div className="just-cent h-100">
+            <div id="list" className="autocomplete-items"></div>
+          </div>
+        </div>
         <div
-          className="abs overlay animate__animated animate__fadeInDown animate__delay-1s"
-          onClick={(e) => {
-            Hide(e.currentTarget);
+          className="autocomplete"
+          onMouseDown={() => {
+            ForceDeleteHalls();
+          }}
+        ></div>
+        <div className="mt-2">
+          <button
+            className="button yellowbg base"
+            onClick={() => handleTypeSelect(0, "Uncomfortable Situation")}
+          >
+            Uncomfortable Situation
+          </button>
+          <button
+            className="button redbg base"
+            onClick={() => handleTypeSelect(1, "Sexual Harassment")}
+          >
+            Sexual Harassment
+          </button>
+          <button
+            className="button purplebg base"
+            onClick={() => handleTypeSelect(2, "Physical")}
+          >
+            Physical
+          </button>
+
+          <button
+            className="button bluebg base"
+            onClick={() => handleTypeSelect(3, "Verbal Aggression")}
+          >
+            Verbal Aggression
+          </button>
+          <button
+            className="button blackbg base"
+            onClick={() => handleTypeSelect(4, "Discrimination")}
+          >
+            Discrimination
+          </button>
+        </div>
+        <button
+          className="submit button base w-50 borderred whitebg black"
+          onClick={() => {
+            addData(Hall);
           }}
         >
-          <h6 className="inst rotate">Enter a campus location</h6>
-          <img
-            className="arrow rotate"
-            src="https://raw.githubusercontent.com/CaptainSquid9/RedReport/6058b146b4556500a4988f5214dc23c47a0754b6/client/arrow.svg"
-            height={"75px"}
-          ></img>
-          <input type="text" className="overlay" />
-        </div>
-        <h6 className="inst insth rotate animate__animated animate__fadeOut">
-          Enter a campus location
-        </h6>
-        <img
-          className="arrow rotate insth animate__animated animate__fadeOut"
-          src="https://raw.githubusercontent.com/CaptainSquid9/RedReport/6058b146b4556500a4988f5214dc23c47a0754b6/client/arrow.svg"
-          height={"75px"}
-        ></img>
-        <input
-          id="report"
-          type="text"
-          name="report"
-          placeholder="Alumni"
-          onClick={(e) => {
-            ListHalls(e.currentTarget);
-          }}
-          onInputCapture={(e) => {
-            AutoCompleteHall(e.currentTarget);
-          }}
-        />
-        <div id="list" className="autocomplete-items"></div>
+          Submit
+        </button>
       </div>
-      <div
-        className="autocomplete"
-        onMouseDown={() => {
-          ForceDeleteHalls();
-        }}
-      >
-        <div id="type" className="col">
-          <div
-            className="abs animate__animated animate__fadeInDown animate__delay-1s overlay"
-            onClick={(e) => {
-              Hide(e.currentTarget);
-            }}
-          >
-            <div className="brackcont">
-              <h3 className="bracket">{"}"}</h3>
-              <h3 className="inst2">What happened?</h3>
-            </div>
-
-            <div className="button yellow disc od"></div>
-            <div className="button red disc od"></div>
-            <div className="button blue disc od"></div>
-            <div className="button purple disc od"></div>
-            <div className="button black disc od"></div>
-          </div>
-          <div className="brackcont insth animate__animated animate__fadeOut">
-            <h3 className="bracket">{"}"}</h3>
-            <h3 className="inst2">What happened?</h3>
-          </div>
-          <div>
-            <button
-              className="button yellow disc"
-              onClick={() => handleTypeSelect(0, "Uncomfortable Situation")}
-            >
-              Uncomfortable Situation
-            </button>
-            <button
-              className="button red disc"
-              onClick={() => handleTypeSelect(1, "Sexual Harassment")}
-            >
-              Sexual Harassment
-            </button>
-            <button
-              className="button blue disc"
-              onClick={() => handleTypeSelect(2, "Physical")}
-            >
-              Physical
-            </button>
-
-            <button
-              className="button purple disc"
-              onClick={() => handleTypeSelect(3, "Verbal Aggression")}
-            >
-              Verbal Aggression
-            </button>
-            <button
-              className="button black disc"
-              onClick={() => handleTypeSelect(4, "Discrimination")}
-            >
-              Discrimination
-            </button>
-          </div>
-        </div>
-      </div>
-      <button
-        className="submit button"
-        onClick={() => {
-          addData(Hall);
-        }}
-      >
-        Submit
-      </button>
     </>
   );
 }

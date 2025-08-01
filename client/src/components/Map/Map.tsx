@@ -7,10 +7,7 @@ import { NDHallsWithCoordinates } from "../../data/hallsData.ts";
 import { Case, MapPoint } from "../../types/index.ts";
 import { AnalyticsService } from "../../services/analyticsService.ts";
 import { FirebaseService } from "../../services/firebaseService.ts";
-import {
-  getIncidentTypeName,
-  getIncidentSeverity,
-} from "../../utils/deviceUtils.ts";
+import { getIncidentTypeName } from "../../utils/deviceUtils.ts";
 
 interface MapProps {
   reports?: Case[];
@@ -26,21 +23,59 @@ interface EnhancedMapPoint {
   };
   buildingType: string;
   location: string;
-  severityStats: {
-    averageSeverity: number;
-    highSeverityCount: number; // Severity 4-5
-  };
   recentIncidents: Case[];
+}
+
+interface FilterState {
+  selectedCampus: string;
+  selectedMonth: string;
+  selectedTypes: number[];
+  showMenu: boolean;
 }
 
 function Map({ reports = [], onReportClick }: MapProps) {
   const [Points, SetPoints] = useState<Case[]>([]);
+  const [filteredPoints, setFilteredPoints] = useState<Case[]>([]);
   const [enhancedMapPoints, setEnhancedMapPoints] = useState<
     EnhancedMapPoint[]
   >([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [filters, setFilters] = useState<FilterState>({
+    selectedCampus: "All",
+    selectedMonth: "All",
+    selectedTypes: [],
+    showMenu: false,
+  });
   const mapRef = useRef<L.Map | null>(null);
+
+  // Get unique campuses from hall data
+  const campuses = [
+    "All",
+    ...Array.from(new Set(NDHallsWithCoordinates.map((hall) => hall.location))),
+  ];
+
+  // Get available months from data
+  const getAvailableMonths = () => {
+    const months = new Set<string>();
+    Points.forEach((point) => {
+      const date = new Date(point.Time);
+      const monthYear = `${date.getFullYear()}-${String(
+        date.getMonth() + 1
+      ).padStart(2, "0")}`;
+      months.add(monthYear);
+    });
+    return ["All", ...Array.from(months).sort().reverse()];
+  };
+
+  // Incident type options
+  const incidentTypes = [
+    { id: 0, name: "Uncomfortable Situation", color: "#de9e36" },
+    { id: 1, name: "Sexual Harassment", color: "#ca3c25" },
+    { id: 2, name: "Physical", color: "#701d52" },
+    { id: 3, name: "Verbal Aggression", color: "#212475" },
+    { id: 4, name: "Discrimination", color: "#1d1a05" },
+  ];
 
   // Convert hall data to map format with enhanced information
   const initializeMapPoints = (): { [key: string]: EnhancedMapPoint } => {
@@ -52,23 +87,92 @@ function Map({ reports = [], onReportClick }: MapProps) {
         coordinates: [hall.latitude, hall.longitude],
         totalIncidents: 0,
         incidentCounts: {
-          0: 0, // Uncomfortable Situation
-          1: 0, // Sexual Harassment
-          2: 0, // Physical
-          3: 0, // Verbal Aggression
-          4: 0, // Discrimination
+          0: 0,
+          1: 0,
+          2: 0,
+          3: 0,
+          4: 0,
         },
         buildingType: hall.buildingType,
         location: hall.location,
-        severityStats: {
-          averageSeverity: 0,
-          highSeverityCount: 0,
-        },
         recentIncidents: [],
       };
     });
 
     return mapPoints;
+  };
+
+  // Apply filters to points
+  const applyFilters = (points: Case[]) => {
+    return points.filter((point) => {
+      // Campus filter
+      if (filters.selectedCampus !== "All") {
+        const hallData = NDHallsWithCoordinates.find(
+          (hall) => hall.name === point.Dorm
+        );
+        if (!hallData || hallData.location !== filters.selectedCampus) {
+          return false;
+        }
+      }
+
+      // Month filter
+      if (filters.selectedMonth !== "All") {
+        const pointDate = new Date(point.Time);
+        const pointMonth = `${pointDate.getFullYear()}-${String(
+          pointDate.getMonth() + 1
+        ).padStart(2, "0")}`;
+        if (pointMonth !== filters.selectedMonth) {
+          return false;
+        }
+      }
+
+      // Type filter
+      if (
+        filters.selectedTypes.length > 0 &&
+        !filters.selectedTypes.includes(point.Type)
+      ) {
+        return false;
+      }
+
+      return true;
+    });
+  };
+
+  // Handle filter changes
+  const handleFilterChange = (filterType: keyof FilterState, value: any) => {
+    setFilters((prev) => ({
+      ...prev,
+      [filterType]: value,
+    }));
+  };
+
+  // Toggle incident type filter
+  const toggleIncidentType = (typeId: number) => {
+    setFilters((prev) => ({
+      ...prev,
+      selectedTypes: prev.selectedTypes.includes(typeId)
+        ? prev.selectedTypes.filter((id) => id !== typeId)
+        : [...prev.selectedTypes, typeId],
+    }));
+  };
+
+  // Navigate to campus
+  const navigateToCampus = (campus: string) => {
+    if (!mapRef.current) return;
+
+    if (campus === "All") {
+      mapRef.current.setView([41.7002, -86.2379], 15);
+    } else {
+      const campusHalls = NDHallsWithCoordinates.filter(
+        (hall) => hall.location === campus
+      );
+      if (campusHalls.length > 0) {
+        const bounds = L.latLngBounds(
+          campusHalls.map((hall) => [hall.latitude, hall.longitude])
+        );
+        mapRef.current.fitBounds(bounds, { padding: [50, 50] });
+      }
+    }
   };
 
   useEffect(() => {
@@ -122,8 +226,13 @@ function Map({ reports = [], onReportClick }: MapProps) {
     getData();
   }, []);
 
+  // Apply filters when filters change
   useEffect(() => {
-    if (!mapRef.current || Points.length === 0) return;
+    setFilteredPoints(applyFilters(Points));
+  }, [Points, filters]);
+
+  useEffect(() => {
+    if (!mapRef.current || filteredPoints.length === 0) return;
 
     // Clear existing markers
     mapRef.current.eachLayer((layer) => {
@@ -136,7 +245,7 @@ function Map({ reports = [], onReportClick }: MapProps) {
     const mapPoints = initializeMapPoints();
 
     // Process incidents and build enhanced data
-    Points.forEach((point) => {
+    filteredPoints.forEach((point) => {
       try {
         const hallName = point.Dorm;
         if (mapPoints[hallName]) {
@@ -149,34 +258,9 @@ function Map({ reports = [], onReportClick }: MapProps) {
           if (mapPoints[hallName].recentIncidents.length > 10) {
             mapPoints[hallName].recentIncidents.shift();
           }
-
-          // Calculate severity statistics
-          const severity =
-            point.incidentDetails?.severity || getIncidentSeverity(point.Type);
-          if (severity >= 4) {
-            mapPoints[hallName].severityStats.highSeverityCount++;
-          }
         }
       } catch (error) {
         console.warn(`Error processing incident for ${point.Dorm}:`, error);
-      }
-    });
-
-    // Calculate average severity for each hall
-    Object.values(mapPoints).forEach((mapPoint) => {
-      if (mapPoint.totalIncidents > 0) {
-        const totalSeverity = mapPoint.recentIncidents.reduce(
-          (sum, incident) => {
-            return (
-              sum +
-              (incident.incidentDetails?.severity ||
-                getIncidentSeverity(incident.Type))
-            );
-          },
-          0
-        );
-        mapPoint.severityStats.averageSeverity =
-          totalSeverity / mapPoint.totalIncidents;
       }
     });
 
@@ -194,11 +278,11 @@ function Map({ reports = [], onReportClick }: MapProps) {
         )[0][0];
 
         const typeColors = {
-          0: "#de9e36", // Uncomfortable Situation - Yellow
-          1: "#ca3c25", // Sexual Harassment - Red
-          2: "#701d52", // Physical - Purple
-          3: "#212475", // Verbal Aggression - Blue
-          4: "#1d1a05", // Discrimination - Black
+          0: "#de9e36",
+          1: "#ca3c25",
+          2: "#701d52",
+          3: "#212475",
+          4: "#1d1a05",
         };
 
         const circleColor =
@@ -232,7 +316,8 @@ function Map({ reports = [], onReportClick }: MapProps) {
 
     // Log map view analytics
     AnalyticsService.logMapView();
-  }, [Points]);
+  }, [filteredPoints]);
+
   const createEnhancedPopup = (mapPoint: EnhancedMapPoint): string => {
     // Calculate risk score based on recent incidents (last 7 days)
     const sevenDaysAgo = new Date();
@@ -262,7 +347,6 @@ function Map({ reports = [], onReportClick }: MapProps) {
         ? "#212475" // Blue for medium risk
         : "#28a745"; // Green for low risk
 
-    // Incident type names and colors
     const typeInfo = [
       { name: "Uncomfortable Situation", color: "#de9e36" },
       { name: "Sexual Harassment", color: "#ca3c25" },
@@ -325,48 +409,129 @@ function Map({ reports = [], onReportClick }: MapProps) {
   };
 
   return (
-    <>
-      <a href="../">
+    <div className="fullscreen-map-container">
+      {/* Filter Menu */}
+      <div className={`map-filter-menu ${filters.showMenu ? "menu-open" : ""}`}>
+        <button
+          className="menu-toggle-btn"
+          onClick={() => handleFilterChange("showMenu", !filters.showMenu)}
+        >
+          {filters.showMenu ? "✕" : "☰"}
+        </button>
+
+        <div className="filter-content">
+          <h3>Map Filters</h3>
+
+          {/* Campus Filter */}
+          <div className="filter-section">
+            <label>Campus:</label>
+            <select
+              value={filters.selectedCampus}
+              onChange={(e) => {
+                handleFilterChange("selectedCampus", e.target.value);
+                navigateToCampus(e.target.value);
+              }}
+            >
+              {campuses.map((campus) => (
+                <option key={campus} value={campus}>
+                  {campus}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {/* Month Filter */}
+          <div className="filter-section">
+            <label>Month:</label>
+            <select
+              value={filters.selectedMonth}
+              onChange={(e) =>
+                handleFilterChange("selectedMonth", e.target.value)
+              }
+            >
+              {getAvailableMonths().map((month) => (
+                <option key={month} value={month}>
+                  {month === "All" ? "All Time" : month}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {/* Incident Type Filter */}
+          <div className="filter-section">
+            <label>Incident Types:</label>
+            <div className="type-filters">
+              {incidentTypes.map((type) => (
+                <label key={type.id} className="type-checkbox">
+                  <input
+                    type="checkbox"
+                    checked={filters.selectedTypes.includes(type.id)}
+                    onChange={() => toggleIncidentType(type.id)}
+                  />
+                  <span
+                    className="type-color-dot"
+                    style={{ backgroundColor: type.color }}
+                  ></span>
+                  {type.name}
+                </label>
+              ))}
+            </div>
+          </div>
+
+          {/* Clear Filters */}
+          <button
+            className="clear-filters-btn"
+            onClick={() =>
+              setFilters({
+                selectedCampus: "All",
+                selectedMonth: "All",
+                selectedTypes: [],
+                showMenu: filters.showMenu,
+              })
+            }
+          >
+            Clear All Filters
+          </button>
+
+          {/* Results Summary */}
+          <div className="results-summary">
+            <p>Showing {filteredPoints.length} incidents</p>
+            {filters.selectedCampus !== "All" && (
+              <p>Campus: {filters.selectedCampus}</p>
+            )}
+            {filters.selectedMonth !== "All" && (
+              <p>Period: {filters.selectedMonth}</p>
+            )}
+            {filters.selectedTypes.length > 0 && (
+              <p>
+                Types:{" "}
+                {filters.selectedTypes
+                  .map((id) => incidentTypes.find((t) => t.id === id)?.name)
+                  .join(", ")}
+              </p>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Back Button */}
+      <a href="../" className="back-button">
         <button className="buttion disc abs back">Back</button>
       </a>
 
+      {/* Loading Overlay */}
       {loading && (
-        <div
-          style={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            background: "rgba(255, 255, 255, 0.9)",
-            padding: "20px",
-            borderRadius: "8px",
-            zIndex: 1000,
-          }}
-        >
-          Loading incident data...
+        <div className="loading-overlay">
+          <div className="loading-content">Loading incident data...</div>
         </div>
       )}
 
-      {error && (
-        <div
-          style={{
-            position: "absolute",
-            top: "10px",
-            left: "50%",
-            transform: "translateX(-50%)",
-            background: "#ca3c25",
-            color: "white",
-            padding: "10px 20px",
-            borderRadius: "8px",
-            zIndex: 1000,
-          }}
-        >
-          {error}
-        </div>
-      )}
+      {/* Error Overlay */}
+      {error && <div className="error-overlay">{error}</div>}
 
-      <div id="map"></div>
-    </>
+      {/* Map Container */}
+      <div id="map" className="fullscreen-map"></div>
+    </div>
   );
 }
 

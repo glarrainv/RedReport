@@ -73,15 +73,3 @@ export function getIncidentTypeName(type: number): string {
   ];
   return typeNames[type] || "Unknown";
 }
-
-export function getIncidentSeverity(type: number): number {
-  // Assign severity levels based on incident type
-  const severityMap: { [key: number]: number } = {
-    0: 2, // Uncomfortable Situation - Low
-    1: 5, // Sexual Harassment - High
-    2: 4, // Physical - High
-    3: 3, // Verbal Aggression - Medium
-    4: 4, // Discrimination - High
-  };
-  return severityMap[type] || 1;
-}
