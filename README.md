@@ -14,7 +14,7 @@
 
 
 An anonymous campus reporting tool for college students at the Notre Dame Tricampus community. You shouldn't have to suffer to share your pain, so we built this for you.
-* By students for students. * 
+**By students for students.** 
 
 It displays the data visually to show the reality of the problem for students and administrators currently on campus. Additionally, it has room to highlight progress made as my team works with administrators in those locations to address the issue appropriately. The project complements the available reporting tools but aims to recognize the existence of cases that would usually go unreported.
 
@@ -22,8 +22,8 @@ It displays the data visually to show the reality of the problem for students an
 [](https://reddot.report/)
 
 ## Screenshots
-![App Screenshot](https://github.com/user-attachments/assets/f9af3602-0d67-4b44-806a-5468e7f7b398)
-![Map Screenshot](https://github.com/user-attachments/assets/42d9175d-5bac-4eee-832a-6611a3e8c734)
+<img width="1874" height="813" alt="Homepage" src="https://github.com/user-attachments/assets/3d2021a8-2853-410e-9865-2b4e75987e7e" />
+<img width="1867" height="813" alt="Map" src="https://github.com/user-attachments/assets/1c78c1fa-8e79-4fe8-90d8-2b8fff6a14df" />
 
 ## Authors
 
@@ -54,6 +54,7 @@ Complete the following form to be listed here as a tester
 [forks-shield]: https://img.shields.io/github/forks/CaptainSquid9/RedReport.svg?style=for-the-badge
 [forks-url]: https://github.com/CaptainSquid9/RedReport/network/members
 [stars-shield]: https://img.shields.io/github/stars/CaptainSquid9/RedReport.svg?style=for-the-badge
+
 [stars-url]: https://github.com/CaptainSquid9/RedReport/stargazers
 [issues-shield]: https://img.shields.io/github/issues/CaptainSquid9/RedReport.svg?style=for-the-badge
 [issues-url]: https://github.com/CaptainSquid9/RedReport/issues
