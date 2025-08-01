@@ -10,15 +10,16 @@
 </p>
 
 # **Redreport**
-### *Believing in your own story carries no shame*
+### *You don't have to suffer alone*
 
 
-The prototype website anonymously collects a general classification of the discomfort and the location where it happens. It requires no justification or explanation from victims while not accusing any individual of anything. Instead, it validates the problem's existence and focuses on helping the victim feel supported as quickly as possible. 
+An anonymous campus reporting tool for college students at the Notre Dame Tricampus community. You shouldn't have to suffer to share your pain, so we built this for you.
+* By students for students. * 
 
 It displays the data visually to show the reality of the problem for students and administrators currently on campus. Additionally, it has room to highlight progress made as my team works with administrators in those locations to address the issue appropriately. The project complements the available reporting tools but aims to recognize the existence of cases that would usually go unreported.
 
-## Demo
-[V2.0 Redreport](https://red-report.vercel.app/)
+## Live Version
+[](https://reddot.report/)
 
 ## Screenshots
 ![App Screenshot](https://github.com/user-attachments/assets/f9af3602-0d67-4b44-806a-5468e7f7b398)
@@ -36,13 +37,13 @@ It displays the data visually to show the reality of the problem for students an
 | :---------------- | :------: |
 | **Moraa**           |[Profiles](https://linktr.ee/JustARandomSquirrelFan)|
 | Erian S.            |          |
-| [Srbth]             |          |
+| Srbth               |          |
 | Chinaza             |          |
 
 
-## Support
+## Testing Program
+Complete the following form to be listed here as a tester
 
-For any recommendations, questions or comments please email glarrain@nd.edu
 
 ## Appendix
 
