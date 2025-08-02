@@ -559,7 +559,7 @@ function Map({ reports = [], onReportClick }: MapProps) {
 
       {/* Back Button */}
       <a href="../" className="back-button">
-        <button className="buttion disc abs back">Back</button>
+        <button className="buttion abs right">Back</button>
       </a>
 
       {/* Loading Overlay */}
