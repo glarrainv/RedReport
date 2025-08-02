@@ -1,11 +1,17 @@
 
 <p align="center">
 <img src="https://github.com/user-attachments/assets/c10795ff-aeb5-47f8-b2e7-82880c1c63a7"/>
-  
+
+[![forthebadge](https://forthebadge.com/images/badges/made-with-html_css.svg)](https://forthebadge.com)
+[![forthebadge](https://forthebadge.com/images/badges/made-with-react.svg)](https://forthebadge.com)
+</br>
+
 <a> [![Contributors][contributors-shield]][contributors-url] </a>
 <a> [![Forks][forks-shield]][forks-url] </a>
 <a> [![Stargazers][stars-shield]][stars-url] </a>
 <a> [![Issues][issues-shield]][issues-url]</a>
+</br>
+
 <a> [![project_license][license-shield]][license-url] </a>
 </p>
 
@@ -26,10 +32,6 @@ It displays the data visually to show the reality of the problem for students an
 <img width="1867" height="813" alt="Map" src="https://github.com/user-attachments/assets/1c78c1fa-8e79-4fe8-90d8-2b8fff6a14df" />
 
 ## Authors
-
-### Developers 
-***Gaspar Larraín*** - University of Notre Student - [@glarrain](https://github.com/CaptainSquid9)
-
 
 ## Credits
 
@@ -58,5 +60,5 @@ Complete the following form to be listed here as a tester
 [stars-url]: https://github.com/CaptainSquid9/RedReport/stargazers
 [issues-shield]: https://img.shields.io/github/issues/CaptainSquid9/RedReport.svg?style=for-the-badge
 [issues-url]: https://github.com/CaptainSquid9/RedReport/issues
-[license-shield]: https://img.shields.io/github/license/CaptainSquid9/RedReport.svg?style=for-the-badge
+[license-shield]: https://badgen.net/static/license/CC%20BY-NC-SA%203.0/yellow
 [license-url]: https://github.com/CaptainSquid9/RedReport/blob/main/LICENSE
