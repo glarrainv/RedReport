@@ -421,7 +421,7 @@ function Map({ reports = [], onReportClick }: MapProps) {
   return (
     <div className="fullscreen-map-container">
       {/* Filter Menu */}
-      <div className={`map-filter-menu`}>
+      <div className={`map-filter-menu m-2`}>
         <button
           className="menu-toggle-btn"
           onClick={() => handleFilterChange("showMenu", !filters.showMenu)}
@@ -558,9 +558,19 @@ function Map({ reports = [], onReportClick }: MapProps) {
       </div>
 
       {/* Back Button */}
-      <a href="../" className="back-button">
-        <button className="buttion abs right">Back</button>
-      </a>
+      <div>
+        <a href="../" className="back-button">
+          <button className="option abs right small">Back</button>
+        </a>
+        <a
+          data-az-l="1e9e1abc-2335-4838-949d-8ab8af0dd8c9"
+          className="back-button"
+        >
+          <button className="option abs right mt-5 small">
+            Leave Feedback
+          </button>
+        </a>
+      </div>
 
       {/* Loading Overlay */}
       {loading && (

@@ -75,11 +75,20 @@
   vertical-align: text-top;
 }
 /* Margin */
+.m-1 {
+  margin: 10px;
+}
 .m-2 {
   margin: 20px;
 }
 .mt-2 {
   margin-top: 20px;
+}
+.mt-5 {
+  margin-top: 10vh;
+}
+.mr-5 {
+  margin-right: 100px !important;
 }
 /* Layout */
 .w-50 {
@@ -489,19 +498,23 @@ h6 {
   z-index: 1001;
 }
 
-.back-button .buttion {
+.back-button .option {
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
   border: 2px solid var(--accent-color);
   color: var(--accent-color);
-  padding: 12px 20px;
+  width: 20vh;
+  height: 8vh;
+  font-size: 2vh;
+  align-content: center;
+  text-align: center;
   border-radius: 8px;
   font-weight: 600;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
 }
 
-.back-button .buttion:hover {
+.back-button .option:hover {
   background: var(--accent-color);
   color: white;
   transform: translateY(-1px);
@@ -571,11 +584,6 @@ h6 {
   .back-button {
     top: 10px;
     right: 10px;
-  }
-
-  .back-button .buttion {
-    padding: 10px 16px;
-    font-size: 14px;
   }
 }
 
