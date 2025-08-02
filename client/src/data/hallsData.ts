@@ -3,7 +3,7 @@ import { HallData, HallDataWithCoordinates } from "../types/index.ts";
 // Hall data for SelectHall component
 export const NDHalls: HallData[] = [
   {
-    name: "Alliance for Catholic Education",
+    name: "ACE",
     location: "Notre Dame",
     buildingType: "Academic Building",
   },
@@ -18,7 +18,7 @@ export const NDHalls: HallData[] = [
     buildingType: "Hall",
   },
   {
-    name: "Basilica of the Sacred Heart",
+    name: "Basilica",
     location: "Notre Dame",
     buildingType: "Academic Building",
   },
@@ -33,17 +33,17 @@ export const NDHalls: HallData[] = [
     buildingType: "Hall",
   },
   {
-    name: "Chemistry Physics Library",
+    name: "Chem/Phys Library",
     location: "Notre Dame",
     buildingType: "Academic Building",
   },
   {
-    name: "Church of Our Lady of Loretto",
+    name: "Loretto Church",
     location: "Saint Mary's",
     buildingType: "Academic Building",
   },
   {
-    name: "Coleman-Morse Center",
+    name: "Coleman-Morse",
     location: "Notre Dame",
     buildingType: "Student Building",
   },
@@ -68,7 +68,7 @@ export const NDHalls: HallData[] = [
     buildingType: "Hall",
   },
   {
-    name: "Early Childhood Development Center",
+    name: "ECDC",
     location: "Notre Dame",
     buildingType: "Academic Building",
   },
@@ -93,7 +93,7 @@ export const NDHalls: HallData[] = [
     buildingType: "Student Building",
   },
   {
-    name: "Garbanzo Mediterranean Fresh @ Hesburgh Center",
+    name: "Garbanzo @ Hesburgh Center",
     location: "Notre Dame",
     buildingType: "Student Building",
   },
@@ -103,17 +103,17 @@ export const NDHalls: HallData[] = [
     buildingType: "Hall",
   },
   {
-    name: "Grotto of Our Lady of Lourdes",
+    name: "Grotto",
     location: "Notre Dame",
     buildingType: "Academic Building",
   },
   {
-    name: "Haggar College Center",
+    name: "Haggar Center",
     location: "Saint Mary's",
     buildingType: "Student Building",
   },
   {
-    name: "Hammes Notre Dame Bookstore",
+    name: "Hammes Bookstore",
     location: "Notre Dame",
     buildingType: "Student Building",
   },
@@ -153,7 +153,7 @@ export const NDHalls: HallData[] = [
     buildingType: "Hall",
   },
   {
-    name: "Keough School of Global Affairs",
+    name: "Keough School",
     location: "Notre Dame",
     buildingType: "Academic Building",
   },
@@ -193,12 +193,12 @@ export const NDHalls: HallData[] = [
     buildingType: "Academic Building",
   },
   {
-    name: "McGrath Institute For Church Life",
+    name: "McGrath Institute",
     location: "Notre Dame",
     buildingType: "Academic Building",
   },
   {
-    name: "Mendoza College of Business",
+    name: "Mendoza College",
     location: "Notre Dame",
     buildingType: "Academic Building",
   },
@@ -228,22 +228,22 @@ export const NDHalls: HallData[] = [
     buildingType: "Academic Building",
   },
   {
-    name: "Notre Dame College of Engineering",
+    name: "College of Engineering",
     location: "Notre Dame",
     buildingType: "Academic Building",
   },
   {
-    name: "Notre Dame Computer Store",
+    name: "Computer Store",
     location: "Notre Dame",
     buildingType: "Student Building",
   },
   {
-    name: "Notre Dame Law School",
+    name: "Law School",
     location: "Notre Dame",
     buildingType: "Academic Building",
   },
   {
-    name: "Notre Dame Stadium",
+    name: "Stadium",
     location: "Notre Dame",
     buildingType: "Sports Facility",
   },
@@ -253,7 +253,7 @@ export const NDHalls: HallData[] = [
     buildingType: "Hall",
   },
   {
-    name: "O'Neill Hall of Music",
+    name: "O'Neill Hall",
     location: "Notre Dame",
     buildingType: "Academic Building",
   },
@@ -273,7 +273,7 @@ export const NDHalls: HallData[] = [
     buildingType: "Sports Facility",
   },
   {
-    name: "Raclin Murphy Museum of Art",
+    name: "Raclin Murphy Museum",
     location: "Notre Dame",
     buildingType: "Academic Building",
   },
@@ -288,7 +288,7 @@ export const NDHalls: HallData[] = [
     buildingType: "Hall",
   },
   {
-    name: "Saint Mary's College Angela Athletic Center",
+    name: "Angela Athletic Center",
     location: "Saint Mary's",
     buildingType: "Sports Facility",
   },
@@ -308,7 +308,7 @@ export const NDHalls: HallData[] = [
     buildingType: "Hall",
   },
   {
-    name: "Smith Center for Recreational Sports",
+    name: "Smith Center",
     location: "Notre Dame",
     buildingType: "Sports Facility",
   },
@@ -353,12 +353,12 @@ export const NDHalls: HallData[] = [
     buildingType: "Student Building",
   },
   {
-    name: "University Health Services",
+    name: "UHS",
     location: "Notre Dame",
     buildingType: "Student Building",
   },
   {
-    name: "University of Notre Dame School of Architecture",
+    name: "School of Architecture",
     location: "Notre Dame",
     buildingType: "Academic Building",
   },
@@ -388,7 +388,7 @@ export const NDHalls: HallData[] = [
 // Hall data with coordinates for Map component
 export const NDHallsWithCoordinates: HallDataWithCoordinates[] = [
   {
-    name: "Alliance for Catholic Education",
+    name: "ACE",
     latitude: 41.7036684,
     longitude: -86.2398665,
     location: "Notre Dame",
@@ -409,7 +409,7 @@ export const NDHallsWithCoordinates: HallDataWithCoordinates[] = [
     buildingType: "Hall",
   },
   {
-    name: "Basilica of the Sacred Heart",
+    name: "Basilica",
     latitude: 41.7026336,
     longitude: -86.2397856,
     location: "Notre Dame",
@@ -430,21 +430,21 @@ export const NDHallsWithCoordinates: HallDataWithCoordinates[] = [
     buildingType: "Hall",
   },
   {
-    name: "Chemistry Physics Library",
+    name: "Chem/Phys Library",
     latitude: 41.7015402,
     longitude: -86.2366507,
     location: "Notre Dame",
     buildingType: "Academic Building",
   },
   {
-    name: "Church of Our Lady of Loretto",
+    name: "Loretto Church",
     latitude: 41.7046872,
     longitude: -86.2605608,
     location: "Saint Mary's",
     buildingType: "Academic Building",
   },
   {
-    name: "Coleman-Morse Center",
+    name: "Coleman-Morse",
     latitude: 41.7006394,
     longitude: -86.240573,
     location: "Notre Dame",
@@ -479,7 +479,7 @@ export const NDHallsWithCoordinates: HallDataWithCoordinates[] = [
     buildingType: "Hall",
   },
   {
-    name: "Early Childhood Development Center",
+    name: "ECDC",
     latitude: 41.7036642,
     longitude: -86.2297151,
     location: "Notre Dame",
@@ -514,7 +514,7 @@ export const NDHallsWithCoordinates: HallDataWithCoordinates[] = [
     buildingType: "Student Building",
   },
   {
-    name: "Garbanzo Mediterranean Fresh @ Hesburgh Center",
+    name: "Garbanzo @ Hesburgh Center",
     latitude: 41.696418,
     longitude: -86.2379586,
     location: "Notre Dame",
@@ -528,21 +528,21 @@ export const NDHallsWithCoordinates: HallDataWithCoordinates[] = [
     buildingType: "Hall",
   },
   {
-    name: "Grotto of Our Lady of Lourdes",
+    name: "Grotto",
     latitude: 41.7030868,
     longitude: -86.2403638,
     location: "Notre Dame",
     buildingType: "Academic Building",
   },
   {
-    name: "Haggar College Center",
+    name: "Haggar Center",
     latitude: 41.7074603,
     longitude: -86.2556776,
     location: "Saint Mary's",
     buildingType: "Student Building",
   },
   {
-    name: "Hammes Notre Dame Bookstore",
+    name: "Hammes Bookstore",
     latitude: 41.696401,
     longitude: -86.2397479,
     location: "Notre Dame",
@@ -598,7 +598,7 @@ export const NDHallsWithCoordinates: HallDataWithCoordinates[] = [
     buildingType: "Hall",
   },
   {
-    name: "Keough School of Global Affairs",
+    name: "Keough School",
     latitude: 41.6958104,
     longitude: -86.2377301,
     location: "Notre Dame",
@@ -654,14 +654,14 @@ export const NDHallsWithCoordinates: HallDataWithCoordinates[] = [
     buildingType: "Academic Building",
   },
   {
-    name: "McGrath Institute For Church Life",
+    name: "McGrath Institute",
     latitude: 41.7028431,
     longitude: -86.2353977,
     location: "Notre Dame",
     buildingType: "Academic Building",
   },
   {
-    name: "Mendoza College of Business",
+    name: "Mendoza College",
     latitude: 41.6971637,
     longitude: -86.2360776,
     location: "Notre Dame",
@@ -703,28 +703,28 @@ export const NDHallsWithCoordinates: HallDataWithCoordinates[] = [
     buildingType: "Academic Building",
   },
   {
-    name: "Notre Dame College of Engineering",
+    name: "College of Engineering",
     latitude: 41.6994719,
     longitude: -86.236722,
     location: "Notre Dame",
     buildingType: "Academic Building",
   },
   {
-    name: "Notre Dame Computer Store",
+    name: "Computer Store",
     latitude: 41.69635,
     longitude: -86.2399734,
     location: "Notre Dame",
     buildingType: "Student Building",
   },
   {
-    name: "Notre Dame Law School",
+    name: "Law School",
     latitude: 41.6986715,
     longitude: -86.2379551,
     location: "Notre Dame",
     buildingType: "Academic Building",
   },
   {
-    name: "Notre Dame Stadium",
+    name: "Stadium",
     latitude: 41.6983981,
     longitude: -86.233916,
     location: "Notre Dame",
@@ -738,7 +738,7 @@ export const NDHallsWithCoordinates: HallDataWithCoordinates[] = [
     buildingType: "Hall",
   },
   {
-    name: "O'Neill Hall of Music",
+    name: "O'Neill Hall",
     latitude: 41.6972107,
     longitude: -86.2339136,
     location: "Notre Dame",
@@ -766,7 +766,7 @@ export const NDHallsWithCoordinates: HallDataWithCoordinates[] = [
     buildingType: "Sports Facility",
   },
   {
-    name: "Raclin Murphy Museum of Art",
+    name: "Raclin Murphy Museum",
     latitude: 41.6938488,
     longitude: -86.2348584,
     location: "Notre Dame",
@@ -787,7 +787,7 @@ export const NDHallsWithCoordinates: HallDataWithCoordinates[] = [
     buildingType: "Hall",
   },
   {
-    name: "Saint Mary's College Angela Athletic Center",
+    name: "Angela Athletic Center",
     latitude: 41.7099386,
     longitude: -86.2569961,
     location: "Saint Mary's",
@@ -815,7 +815,7 @@ export const NDHallsWithCoordinates: HallDataWithCoordinates[] = [
     buildingType: "Hall",
   },
   {
-    name: "Smith Center for Recreational Sports",
+    name: "Smith Center",
     latitude: 41.6984522,
     longitude: -86.2347681,
     location: "Notre Dame",
@@ -878,14 +878,14 @@ export const NDHallsWithCoordinates: HallDataWithCoordinates[] = [
     buildingType: "Student Building",
   },
   {
-    name: "University Health Services",
+    name: "UHS",
     latitude: 41.7043474,
     longitude: -86.2381191,
     location: "Notre Dame",
     buildingType: "Student Building",
   },
   {
-    name: "University of Notre Dame School of Architecture",
+    name: "School of Architecture",
     latitude: 41.6950452,
     longitude: -86.2351332,
     location: "Notre Dame",
