@@ -166,7 +166,7 @@ input[type="text"] {
   height: 2rem;
   border: 3px solid #d64137;
   outline: none;
-  width: 50vw !important;
+  width: 70vw !important;
   transition: border-color 0.5s ease-in-out, color 0.5s ease-in-out;
 }
 .autocomplete-items {
