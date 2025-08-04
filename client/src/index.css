@@ -22,7 +22,6 @@
 
   /* Base styles */
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  line-height: 1.5;
   font-weight: 400;
   color-scheme: light dark;
   color: var(--text-color);
@@ -35,34 +34,7 @@
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
   margin: 10px;
-
-  /* Mobile-first layout */
-  width: 100vw;
-  height: 100vh;
-  margin-left: 0;
 }
-
-/* Responsive breakpoints */
-@media (min-width: 768px) {
-  :root {
-    width: 80vw;
-    margin-left: 10vw;
-  }
-}
-
-@media (min-width: 1024px) {
-  :root {
-    width: 70vw;
-    margin-left: 15vw;
-  }
-}
-
-@media (max-width: 600px) {
-  body {
-    zoom: 1;
-  }
-}
-
 /* Layers */
 #overlay {
   top: 0;
@@ -174,8 +146,9 @@ input[type="text"] {
   overflow-y: scroll;
   scroll-snap-stop: always;
   position: absolute;
+  font-size: 12px;
   z-index: 2;
-  left: calc(25vw - 5px);
+  left: calc(15vw - 5px);
 }
 .autocomplete-items div {
   cursor: pointer;
@@ -185,7 +158,8 @@ input[type="text"] {
   border-right: 3px solid #d64137;
   border-left: 3px solid #d64137;
   z-index: 3;
-  width: calc(50vw + 4px);
+  width: calc(68vw + 10px);
+  align-content: center;
   height: 2rem;
 }
 .bubble {
@@ -225,7 +199,7 @@ input[type="text"] {
   border-radius: 10px;
   box-shadow: inset 10px 10px 50px #6e6e6e65;
   width: 60vw;
-  min-width: 30rem;
+  min-width: 10rem;
   height: 6vh;
   min-height: 2rem;
   margin: 0px 2vw 10px;

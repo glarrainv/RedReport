@@ -257,11 +257,11 @@ function SelectHall({ onHallSelect, onTypeSelect, onSubmit }: SelectHallProps) {
             <div className="chatbubble bubble small animate__animated animate__fadeInDown animate__delay-2s">
               Pick the appropiate option
             </div>
-            <div className="button yellowbg"></div>
-            <div className="button redbg"></div>
-            <div className="button bluebg"></div>
-            <div className="button purplebg"></div>
-            <div className="button blackbg"></div>
+            <button className="button yellowbg"></button>
+            <button className="button redbg"></button>
+            <button className="button bluebg"></button>
+            <button className="button purplebg"></button>
+            <button className="button blackbg"></button>
           </div>
         </div>
       </div>
