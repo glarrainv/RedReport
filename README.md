@@ -53,7 +53,7 @@ It displays the data visually to show the reality of the problem for students an
 
 
 ## Testing Program
-Complete the following form to be listed here as a tester
+Complete the feedback form on the live version to appear here
 
 
 ## Appendix
