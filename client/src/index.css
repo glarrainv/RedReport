@@ -566,6 +566,15 @@ h6 {
     max-width: calc(100vw - 40px);
     min-width: auto;
     width: calc(100vw - 40px);
+    /* Already at top: 10px; left: 10px; from above */
+  }
+
+  .menu-toggle-btn {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    right: auto;
+    z-index: 1100; /* Ensure it's above the map and menu */
   }
 
   .filter-content {

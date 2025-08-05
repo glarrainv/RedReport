@@ -594,8 +594,8 @@ export const NDHallsWithCoordinates: HallDataWithCoordinates[] = [
   },
   {
     name: "DPAC",
-    latitude: 41.694999,
-    longitude: -86.237694,
+    latitude: 41.694799,
+    longitude: -86.236694,
     location: "Notre Dame",
     buildingType: "Academic Building",
   },
@@ -1014,8 +1014,8 @@ export const NDHallsWithCoordinates: HallDataWithCoordinates[] = [
   },
   {
     name: "McCandless Hall",
-    latitude: 41.706786,
-    longitude: -86.25878,
+    latitude: 41.7088424,
+    longitude: -86.2580949,
     location: "Saint Mary's",
     buildingType: "Hall",
   },

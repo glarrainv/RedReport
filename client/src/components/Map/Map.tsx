@@ -213,13 +213,13 @@ function Map({ reports = [], onReportClick }: MapProps) {
         .setView([41.7002, -86.2379], 15)
         .setMinZoom(15)
         .setMaxBounds([
-          [41.7152, -86.2079],
-          [41.6852, -86.2679],
+          [41.7852, -86.1779],
+          [41.5852, -86.2879],
         ]);
 
       new MaptilerLayer({
         style: "80390579-ac14-4623-ba3e-80bdbcb7bd5f",
-        apiKey: "4XUdc4BtSv2psaIP6grE",
+        apiKey: import.meta.env.VITE_MAP_KEY,
       }).addTo(mapRef.current);
     }
 

@@ -147,37 +147,4 @@ export class FirebaseService {
         .filter((report) => report.hallData?.buildingType === buildingType);
     });
   }
-
-  // New method to get reports by severity level
-  static async getReportsBySeverity(minSeverity: number): Promise<Case[]> {
-    return FirebaseErrorHandler.withRetry(async () => {
-      const q = query(
-        collection(db, this.COLLECTION_NAME),
-        orderBy("Time", "desc")
-      );
-
-      const snapshot = await getDocs(q);
-      return snapshot.docs
-        .map((doc) => {
-          const data = doc.data();
-          return {
-            id: doc.id,
-            Dorm: data.Dorm,
-            Type: data.Type,
-            Time: data.Time?.toDate() || new Date(),
-            // Enhanced data fields
-            hallData: data.hallData,
-            userAgent: data.userAgent,
-            timestamp:
-              data.timestamp?.toDate() || data.Time?.toDate() || new Date(),
-            sessionId: data.sessionId,
-            deviceInfo: data.deviceInfo,
-            incidentDetails: data.incidentDetails,
-          } as Case;
-        })
-        .filter(
-          (report) => (report.incidentDetails?.severity || 1) >= minSeverity
-        );
-    });
-  }
 }
