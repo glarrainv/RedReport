@@ -234,7 +234,10 @@ function SelectHall({ onHallSelect, onTypeSelect, onSubmit }: SelectHallProps) {
       <div
         id="overlay"
         className="animate__animated animate__fadeIn overlay cont"
-        onClick={(e) => {
+        onMouseUp={(e) => {
+          Hide(e.currentTarget);
+        }}
+        onTouchEnd={(e) => {
           Hide(e.currentTarget);
         }}
       >

@@ -173,7 +173,7 @@ input[type="text"] {
 }
 .chatbubble {
   width: 30% !important;
-  min-width: 30rem !important;
+  min-width: 10rem !important;
   left: 50px;
 }
 .chatbubble::after {
@@ -187,7 +187,7 @@ input[type="text"] {
 }
 .flip.chatbubble {
   width: 20% !important;
-  min-width: 20rem !important;
+  min-width: 10rem !important;
   left: 35vw;
 }
 .flip.chatbubble::after {
@@ -199,7 +199,7 @@ input[type="text"] {
   border-radius: 10px;
   box-shadow: inset 10px 10px 50px #6e6e6e65;
   width: 60vw;
-  min-width: 10rem;
+  min-width: 20rem;
   height: 6vh;
   min-height: 2rem;
   margin: 0px 2vw 10px;
@@ -240,10 +240,10 @@ h6 {
   font-size: calc(2vh + 1.5rem);
 }
 .xlarge {
-  font-size: calc(4vh + 1.5rem);
+  font-size: calc(3vh + 1.5rem);
 }
 .xxlarge {
-  font-size: calc(4vh + 2rem);
+  font-size: calc(3vh + 1.75rem);
 }
 .vhlarge {
   font-size: 10vw;
