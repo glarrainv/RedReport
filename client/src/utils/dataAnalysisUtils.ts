@@ -7,7 +7,6 @@ export interface IncidentAnalysis {
   incidentsByType: { [key: number]: number };
   incidentsByBuildingType: { [key: string]: number };
   incidentsByLocation: { [key: string]: number };
-  incidentsBySeverity: { [key: number]: number };
   averageSeverity: number;
   mostCommonLocations: Array<{ location: string; count: number }>;
   mostCommonBuildingTypes: Array<{ buildingType: string; count: number }>;
@@ -28,7 +27,6 @@ export function analyzeIncidents(reports: Case[]): IncidentAnalysis {
     incidentsByType: {},
     incidentsByBuildingType: {},
     incidentsByLocation: {},
-    incidentsBySeverity: {},
     averageSeverity: 0,
     mostCommonLocations: [],
     mostCommonBuildingTypes: [],
@@ -65,12 +63,6 @@ export function analyzeIncidents(reports: Case[]): IncidentAnalysis {
       (analysis.incidentsByLocation[location] || 0) + 1;
     locationCounts[location] = (locationCounts[location] || 0) + 1;
 
-    // Count by severity
-    const severity = report.incidentDetails?.severity || 1;
-    analysis.incidentsBySeverity[severity] =
-      (analysis.incidentsBySeverity[severity] || 0) + 1;
-    totalSeverity += severity;
-
     // Time distribution
     const date = new Date(report.Time);
     const hour = date.getHours();
@@ -96,10 +88,6 @@ export function analyzeIncidents(reports: Case[]): IncidentAnalysis {
     }
   });
 
-  // Calculate average severity
-  analysis.averageSeverity =
-    reports.length > 0 ? totalSeverity / reports.length : 0;
-
   // Sort locations by count
   analysis.mostCommonLocations = Object.entries(locationCounts)
     .map(([location, count]) => ({ location, count }))
@@ -111,15 +99,6 @@ export function analyzeIncidents(reports: Case[]): IncidentAnalysis {
     .sort((a, b) => b.count - a.count);
 
   return analysis;
-}
-
-export function getHighSeverityIncidents(
-  reports: Case[],
-  minSeverity: number = 4
-): Case[] {
-  return reports.filter(
-    (report) => (report.incidentDetails?.severity || 1) >= minSeverity
-  );
 }
 
 export function getIncidentsByTimeRange(
@@ -181,11 +160,6 @@ export function generateReportSummary(analysis: IncidentAnalysis): string {
     } (${analysis.mostCommonLocations[0]?.count || 0} incidents)`,
     `Most Common Building Type: ${
       analysis.mostCommonBuildingTypes[0]?.buildingType || "N/A"
-    } (${analysis.mostCommonBuildingTypes[0]?.count || 0} incidents)`,
-    `High Severity Incidents (4+): ${
-      analysis.incidentsBySeverity[4] ||
-      0 + analysis.incidentsBySeverity[5] ||
-      0
     }`,
   ];
 
