@@ -57,7 +57,7 @@ Complete the feedback form on the live version to appear here
 
 
 ## Appendix
-Larrain,, Gaspar (2025). Underreporting Might be for the Better Technological Innovation Blueprint regarding Sexual Assault: Understanding. University of Notre Dame. Dataset. https://doi.org/10.7274/29577557.v1
+Larrain, Gaspar (2025). Underreporting Might be for the Better Technological Innovation Blueprint regarding Sexual Assault: Understanding. University of Notre Dame. Dataset. https://doi.org/10.7274/29577557.v1
 
 [contributors-shield]: https://img.shields.io/github/contributors/CaptainSquid9/RedReport.svg?style=for-the-badge
 [contributors-url]: https://github.com/CaptainSquid9/RedReport/graphs/contributors
