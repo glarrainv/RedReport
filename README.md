@@ -29,6 +29,7 @@ It displays the data visually to show the reality of the problem for students an
 [![Website](https://img.shields.io/website?url=https%3A%2F%2Freddot.report%2F&up_message=Live&down_message=Down&style=for-the-badge&label=Reporting%20Tool)](https://reddot.report/)
 
 ## Screenshots
+### V1.0.0
 <img width="1874" height="813" alt="Homepage" src="https://github.com/user-attachments/assets/3d2021a8-2853-410e-9865-2b4e75987e7e" />
 <img width="1867" height="813" alt="Map" src="https://github.com/user-attachments/assets/1c78c1fa-8e79-4fe8-90d8-2b8fff6a14df" />
 
@@ -44,16 +45,22 @@ It displays the data visually to show the reality of the problem for students an
 
 ## Credits
 
+### Early testing assistance
 | Name              | Links    |
 | :---------------- | :------: |
-| **Moraa**           |[![LinkedTree](https://img.shields.io/badge/linktree-43E55E?style=flat&logo=linktree&logoColor=white)](https://linktr.ee/JustARandomSquirrelFan)|
+| Moraa           |[![LinkedTree](https://img.shields.io/badge/linktree-43E55E?style=flat&logo=linktree&logoColor=white)](https://linktr.ee/JustARandomSquirrelFan)|
 | Erian S.            |          |
 | Srbth               |          |
 | Chinaza             |          |
 
 
-## Testing Program
-Complete the feedback form on the live version to appear here
+### Testing Program
+
+*Website V1.0.0 Cohort* - 13 Testers - 4 Countries - 6 Colleges
+Thank you to everyone involved, including but not limited to:
+Papaloco, Moraa, Cesar Gonzalez II, Emma, Scott, hugo
+
+
 
 
 ## Appendix
